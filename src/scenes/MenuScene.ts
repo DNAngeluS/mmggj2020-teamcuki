@@ -1,5 +1,6 @@
 import * as Phaser from "phaser";
 import { GameplayScene } from "./GameplayScene";
+import { game } from "../main";
 
 export class MenuScene extends Phaser.Scene {
   constructor() {
@@ -8,8 +9,8 @@ export class MenuScene extends Phaser.Scene {
 
   public create() {
     this.add.rectangle(
-      Phaser.Math.Between(0, window.innerWidth),
-      Phaser.Math.Between(0, innerHeight),
+      Phaser.Math.Between(0, game.scale.width),
+      Phaser.Math.Between(0, game.scale.height),
       100,
       100,
       0x1212de
