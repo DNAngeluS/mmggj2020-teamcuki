@@ -10,12 +10,21 @@ export class GameplayScene extends Phaser.Scene {
   private score: number = 0;
   private hud: Phaser.Scene;
 
+  private player: Phaser.Physics.Arcade.Sprite;
+  private platforms: Phaser.Physics.Arcade.StaticGroup;
+
   private readonly loadedSprites = {
     sky: "sky",
     ground: "ground",
     star: "star",
     bomb: "bomb",
     player: "player"
+  };
+
+  private readonly playerAnimations = {
+    left: "left",
+    right: "right",
+    turn: "turn"
   };
 
   constructor() {
@@ -38,6 +47,9 @@ export class GameplayScene extends Phaser.Scene {
     this.scene.launch(HUDScene.name);
 
     this.buildWorld();
+    this.initializePlayer();
+
+    this.physics.add.collider(this.player, this.platforms);
 
     this.input.on("pointerdown", this.addScore);
   }
@@ -54,15 +66,43 @@ export class GameplayScene extends Phaser.Scene {
   private buildWorld = () => {
     this.add.image(400, 300, this.loadedSprites.sky);
 
-    const platforms = this.physics.add.staticGroup();
+    this.platforms = this.physics.add.staticGroup();
     (<Phaser.Physics.Arcade.Image>(
-      platforms.create(400, 568, this.loadedSprites.ground)
+      this.platforms.create(400, 568, this.loadedSprites.ground)
     ))
       .setScale(2)
       .refreshBody();
-    platforms.create(600, 400, this.loadedSprites.ground);
-    platforms.create(50, 250, this.loadedSprites.ground);
-    platforms.create(750, 220, this.loadedSprites.ground);
+    this.platforms.create(600, 400, this.loadedSprites.ground);
+    this.platforms.create(50, 250, this.loadedSprites.ground);
+    this.platforms.create(750, 220, this.loadedSprites.ground);
+  };
+
+  private initializePlayer = () => {
+    this.player = this.physics.add.sprite(100, 450, this.loadedSprites.player);
+
+    // physics
+    this.player.setBounce(0.2);
+    this.player.setCollideWorldBounds(true);
+
+    // animations
+    this.anims.create({
+      key: this.playerAnimations.left,
+      frames: this.anims.generateFrameNumbers(this.loadedSprites.player, {
+        start: 0,
+        end: 3
+      }),
+      frameRate: 10,
+      repeat: -1
+    });
+
+    this.anims.create({
+      key: this.playerAnimations.turn,
+      frames: [{ key: this.loadedSprites.player, frame: 4 }],
+      frameRate: 20,
+      repeat: -1
+    });
+
+    this.anims.create;
   };
 }
 
