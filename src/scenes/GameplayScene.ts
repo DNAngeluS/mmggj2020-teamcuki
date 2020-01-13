@@ -14,9 +14,15 @@ export class GameplayScene extends Phaser.Scene {
     super(sceneConfig);
   }
 
+  public preload() {
+    this.load.image("sky", "assets/sprites/sky.png");
+  }
+
   public create() {
     this.hud = this.scene.get(HUDScene.name);
     this.scene.launch(HUDScene.name);
+
+    this.add.image(400, 300, "sky");
 
     this.add.rectangle(400, 400, 100, 100, 0xffffff);
     this.input.on("pointerdown", this.addScore);
