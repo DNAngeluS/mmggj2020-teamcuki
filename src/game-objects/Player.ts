@@ -1,7 +1,8 @@
 import * as Phaser from "phaser";
 import { spriteAssets } from "../../assets/sprites";
+import { GameObject } from "./GameObject";
 
-export class Player {
+export class Player extends GameObject {
   public static spriteKey: string = spriteAssets.player.toString();
 
   public body: Phaser.Physics.Arcade.Sprite;

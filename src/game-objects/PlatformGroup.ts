@@ -1,7 +1,8 @@
 import * as Phaser from "phaser";
 import { spriteAssets } from "../../assets/sprites";
+import { GameObject } from "./GameObject";
 
-export class PlatformGroup {
+export class PlatformGroup extends GameObject {
   public static spriteKey: string = spriteAssets.ground.toString();
 
   public group: Phaser.Physics.Arcade.StaticGroup;

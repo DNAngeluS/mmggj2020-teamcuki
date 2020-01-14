@@ -1,7 +1,8 @@
 import * as Phaser from "phaser";
 import { spriteAssets } from "../../assets/sprites";
+import { GameObject } from "./GameObject";
 
-export class Background {
+export class Background extends GameObject {
   public static spriteKey = spriteAssets.sky.toString();
 
   public load = (scene: Phaser.Scene) => {
