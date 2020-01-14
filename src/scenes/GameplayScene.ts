@@ -1,6 +1,7 @@
 import * as Phaser from "phaser";
 import { HUDScene, HUDSceneEvents } from "./HUDScene";
 import { spriteAssets } from "../../assets/sprites";
+import { Player } from "../game-objects/Player";
 
 export enum GameplaySceneEvents {
   addScore = "addScore"
@@ -10,21 +11,14 @@ export class GameplayScene extends Phaser.Scene {
   private score: number = 0;
   private hud: Phaser.Scene;
 
-  private player: Phaser.Physics.Arcade.Sprite;
+  private player: Player = new Player();
   private platforms: Phaser.Physics.Arcade.StaticGroup;
 
   private readonly loadedSprites = {
     sky: "sky",
     ground: "ground",
     star: "star",
-    bomb: "bomb",
-    player: "player"
-  };
-
-  private readonly playerAnimations = {
-    left: "left",
-    right: "right",
-    turn: "turn"
+    bomb: "bomb"
   };
 
   constructor() {
@@ -32,14 +26,11 @@ export class GameplayScene extends Phaser.Scene {
   }
 
   public preload() {
+    this.player.load(this);
     this.load.image(this.loadedSprites.sky, spriteAssets.sky);
     this.load.image(this.loadedSprites.ground, spriteAssets.ground);
     this.load.image(this.loadedSprites.star, spriteAssets.star);
     this.load.image(this.loadedSprites.bomb, spriteAssets.bomb);
-    this.load.spritesheet(this.loadedSprites.player, spriteAssets.player, {
-      frameWidth: 32,
-      frameHeight: 48
-    });
   }
 
   public create() {
@@ -47,9 +38,9 @@ export class GameplayScene extends Phaser.Scene {
     this.scene.launch(HUDScene.name);
 
     this.buildWorld();
-    this.initializePlayer();
+    this.player.initialize(this);
 
-    this.physics.add.collider(this.player, this.platforms);
+    this.physics.add.collider(this.player.body, this.platforms);
 
     this.input.on("pointerdown", this.addScore);
   }
@@ -75,34 +66,6 @@ export class GameplayScene extends Phaser.Scene {
     this.platforms.create(600, 400, this.loadedSprites.ground);
     this.platforms.create(50, 250, this.loadedSprites.ground);
     this.platforms.create(750, 220, this.loadedSprites.ground);
-  };
-
-  private initializePlayer = () => {
-    this.player = this.physics.add.sprite(100, 450, this.loadedSprites.player);
-
-    // physics
-    this.player.setBounce(0.2);
-    this.player.setCollideWorldBounds(true);
-
-    // animations
-    this.anims.create({
-      key: this.playerAnimations.left,
-      frames: this.anims.generateFrameNumbers(this.loadedSprites.player, {
-        start: 0,
-        end: 3
-      }),
-      frameRate: 10,
-      repeat: -1
-    });
-
-    this.anims.create({
-      key: this.playerAnimations.turn,
-      frames: [{ key: this.loadedSprites.player, frame: 4 }],
-      frameRate: 20,
-      repeat: -1
-    });
-
-    this.anims.create;
   };
 }
 
