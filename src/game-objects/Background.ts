@@ -1,6 +1,7 @@
 import * as Phaser from "phaser";
 import { spriteAssets } from "../../assets/sprites";
 import { GameObject } from "./GameObject";
+import { game } from "../main";
 
 export class Background extends GameObject {
   public static spriteKey = spriteAssets.sky.toString();
@@ -10,6 +11,10 @@ export class Background extends GameObject {
   };
 
   public initialize = (scene: Phaser.Scene) => {
-    scene.add.image(400, 300, Background.spriteKey);
+    scene.add.image(
+      game.scale.width / 2,
+      game.scale.height / 2,
+      Background.spriteKey
+    );
   };
 }
