@@ -5,12 +5,15 @@ import { GameObject } from "./GameObject";
 export class Player extends GameObject {
   public static spriteKey: string = spriteAssets.player.toString();
 
-  public body: Phaser.Physics.Arcade.Sprite;
+  public sprite: Phaser.Physics.Arcade.Sprite;
+  private movementSpeed: number = 160;
+  private jumpForce: number = 330;
+  private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
 
   private readonly animations = {
     left: "left",
     right: "right",
-    turn: "turn"
+    idle: "idle"
   };
 
   public load = (scene: Phaser.Scene) => {
@@ -21,11 +24,12 @@ export class Player extends GameObject {
   };
 
   public initialize = (scene: Phaser.Scene) => {
-    this.body = scene.physics.add.sprite(100, 450, Player.spriteKey);
+    this.sprite = scene.physics.add.sprite(100, 450, Player.spriteKey);
+    this.cursors = scene.input.keyboard.createCursorKeys();
 
     // physics
-    this.body.setBounce(0.2);
-    this.body.setCollideWorldBounds(true);
+    this.sprite.setBounce(0.15);
+    this.sprite.setCollideWorldBounds(true);
 
     // animations
     scene.anims.create({
@@ -49,12 +53,44 @@ export class Player extends GameObject {
     });
 
     scene.anims.create({
-      key: this.animations.turn,
+      key: this.animations.idle,
       frames: [{ key: Player.spriteKey, frame: 4 }],
       frameRate: 20,
       repeat: -1
     });
 
     scene.anims.create;
+  };
+
+  public update = () => {
+    if (this.cursors.left!.isDown) {
+      this.moveTowards(-1);
+    } else if (this.cursors.right!.isDown) {
+      this.moveTowards(1);
+    } else {
+      this.setIdleState();
+    }
+
+    if (this.cursors.up!.isDown || this.cursors.space!.isDown) {
+      this.performJump();
+    }
+  };
+
+  private setIdleState = () => {
+    this.sprite.setVelocityX(0);
+    this.sprite.anims.play(this.animations.idle);
+  };
+
+  private moveTowards = (direction: number) => {
+    this.sprite.setVelocityX(this.movementSpeed * direction);
+    this.sprite.anims.play(
+      direction > 0 ? this.animations.right : this.animations.left,
+      true
+    );
+  };
+
+  private performJump = () => {
+    if (this.sprite.body.touching.down)
+      this.sprite.setVelocityY(-this.jumpForce);
   };
 }

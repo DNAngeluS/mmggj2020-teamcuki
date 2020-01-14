@@ -35,13 +35,13 @@ export class GameplayScene extends Phaser.Scene {
     this.buildWorld();
     this.player.initialize(this);
 
-    this.physics.add.collider(this.player.body, this.platformGroup.group);
+    this.physics.add.collider(this.player.sprite, this.platformGroup.group);
 
     this.input.on("pointerdown", this.addScore);
   }
 
   public update() {
-    // TODO
+    this.player.update();
   }
 
   private buildWorld = () => {
