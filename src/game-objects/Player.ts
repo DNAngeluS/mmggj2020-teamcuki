@@ -2,7 +2,7 @@ import * as Phaser from "phaser";
 import { spriteAssets } from "../../assets/sprites";
 
 export class Player {
-  private static spriteKey: string = spriteAssets.player.toString();
+  public static spriteKey: string = spriteAssets.player.toString();
 
   public body: Phaser.Physics.Arcade.Sprite;
 
