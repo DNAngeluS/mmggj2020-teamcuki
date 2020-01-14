@@ -3,6 +3,7 @@ import { HUDScene, HUDSceneEvents } from "./HUDScene";
 import { Player } from "../game-objects/Player";
 import { PlatformGroup } from "../game-objects/PlatformGroup";
 import { Background } from "../game-objects/Background";
+import { StarGroup } from "../game-objects/StarGroup";
 
 export enum GameplaySceneEvents {
   addScore = "addScore"
@@ -13,8 +14,9 @@ export class GameplayScene extends Phaser.Scene {
   private hud: Phaser.Scene;
 
   private player: Player = new Player();
-  private platformGroup: PlatformGroup = new PlatformGroup();
   private background: Background = new Background();
+  private platformGroup: PlatformGroup = new PlatformGroup();
+  private starGroup: StarGroup = new StarGroup();
 
   constructor() {
     super(sceneConfig);
@@ -24,6 +26,7 @@ export class GameplayScene extends Phaser.Scene {
     this.player.load(this);
     this.platformGroup.load(this);
     this.background.load(this);
+    this.starGroup.load(this);
   }
 
   public create() {
@@ -33,9 +36,11 @@ export class GameplayScene extends Phaser.Scene {
     this.background.initialize(this);
     this.platformGroup.initialize(this);
     this.buildWorld();
+    this.starGroup.initialize(this);
     this.player.initialize(this);
 
     this.physics.add.collider(this.player.sprite, this.platformGroup.group);
+    this.physics.add.collider(this.starGroup.group, this.platformGroup.group);
 
     this.input.on("pointerdown", this.addScore);
   }
