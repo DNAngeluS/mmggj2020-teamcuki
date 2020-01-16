@@ -42,8 +42,6 @@ export class GameplayScene extends Phaser.Scene {
       this.starGroup.group,
       this.collectStar
     );
-
-    this.input.on("pointerdown", this.addScore);
   }
 
   public update() {
