@@ -1,10 +1,6 @@
 import * as Phaser from "phaser";
 import { HUDScene, HUDSceneEvents } from "./HUDScene";
 
-export enum GameplaySceneEvents {
-  addScore = "addScore"
-}
-
 export class GameplayScene extends Phaser.Scene {
   private score: number = 0;
 
