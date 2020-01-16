@@ -41,6 +41,11 @@ export class GameplayScene extends Phaser.Scene {
 
     this.physics.add.collider(this.player.sprite, this.platformGroup.group);
     this.physics.add.collider(this.starGroup.group, this.platformGroup.group);
+    this.physics.add.overlap(
+      this.player.sprite,
+      this.starGroup.group,
+      this.collectStar
+    );
 
     this.input.on("pointerdown", this.addScore);
   }
@@ -54,6 +59,14 @@ export class GameplayScene extends Phaser.Scene {
     this.platformGroup.create(600, 400);
     this.platformGroup.create(50, 250);
     this.platformGroup.create(750, 220);
+  };
+
+  private collectStar = (
+    player: Phaser.GameObjects.GameObject,
+    star: Phaser.GameObjects.GameObject
+  ) => {
+    star.destroy();
+    this.addScore();
   };
 
   private addScore = () => {
