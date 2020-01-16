@@ -5,10 +5,6 @@ import { PlatformGroup } from "../game-objects/PlatformGroup";
 import { Background } from "../game-objects/Background";
 import { StarGroup } from "../game-objects/StarGroup";
 
-export enum GameplaySceneEvents {
-  addScore = "addScore"
-}
-
 export class GameplayScene extends Phaser.Scene {
   private score: number = 0;
   private hud: Phaser.Scene;
