@@ -4,6 +4,8 @@ import { Player } from "../game-objects/Player";
 import { PlatformGroup } from "../game-objects/PlatformGroup";
 import { Background } from "../game-objects/Background";
 import { StarGroup } from "../game-objects/StarGroup";
+import { BombGroup } from "../game-objects/BombGroup";
+import { game } from "../main";
 
 export class GameplayScene extends Phaser.Scene {
   private score: number = 0;
@@ -13,6 +15,7 @@ export class GameplayScene extends Phaser.Scene {
   private background: Background = new Background();
   private platformGroup: PlatformGroup = new PlatformGroup();
   private starGroup: StarGroup = new StarGroup();
+  private bombGroup: BombGroup = new BombGroup();
 
   constructor() {
     super(sceneConfig);
@@ -23,6 +26,7 @@ export class GameplayScene extends Phaser.Scene {
     this.platformGroup.load(this);
     this.background.load(this);
     this.starGroup.load(this);
+    this.bombGroup.load(this);
   }
 
   public create() {
@@ -34,13 +38,26 @@ export class GameplayScene extends Phaser.Scene {
     this.buildWorld();
     this.starGroup.initialize(this);
     this.player.initialize(this);
+    this.bombGroup.initialize(this);
 
     this.physics.add.collider(this.player.sprite, this.platformGroup.group);
+
     this.physics.add.collider(this.starGroup.group, this.platformGroup.group);
     this.physics.add.overlap(
       this.player.sprite,
       this.starGroup.group,
-      this.collectStar
+      (player, star) => {
+        this.collectStar(player, <Phaser.Physics.Arcade.Sprite>star);
+      }
+    );
+
+    this.physics.add.collider(this.bombGroup.group, this.platformGroup.group);
+    this.physics.add.collider(
+      this.player.sprite,
+      this.bombGroup.group,
+      (player, bomb) => {
+        this.hitBomb(<Phaser.GameObjects.Sprite>player, bomb);
+      }
     );
   }
 
@@ -57,10 +74,34 @@ export class GameplayScene extends Phaser.Scene {
 
   private collectStar = (
     player: Phaser.GameObjects.GameObject,
-    star: Phaser.GameObjects.GameObject
+    star: Phaser.Physics.Arcade.Sprite
   ) => {
-    star.destroy();
+    star.disableBody(true, true);
     this.addScore();
+
+    if (this.starGroup.group.countActive() === 0) {
+      this.starGroup.group.children.iterate(child => {
+        const starSprite = <Phaser.Physics.Arcade.Sprite>child;
+        starSprite.enableBody(true, starSprite.x, 0, true, true);
+      });
+
+      const sceneWidth = game.scale.width;
+      const bombXPosition =
+        this.player.sprite.x < sceneWidth / 2
+          ? Phaser.Math.Between(sceneWidth / 2, sceneWidth)
+          : Phaser.Math.Between(0, sceneWidth / 2);
+
+      this.bombGroup.add(bombXPosition);
+    }
+  };
+
+  private hitBomb = (
+    player: Phaser.GameObjects.Sprite,
+    bomb: Phaser.GameObjects.GameObject
+  ) => {
+    this.physics.pause();
+    player.setTint(0xff0000);
+    player.anims.play("turn");
   };
 
   private addScore = () => {
