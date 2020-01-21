@@ -5,3 +5,10 @@ export const spriteAssets = {
   bomb: "assets/sprites/bomb.png",
   player: "assets/sprites/player.png"
 };
+
+export const uiAssets = {
+  button: {
+    pressed: "assets/sprites/UI/button_pressed.png",
+    released: "assets/sprites/UI/button_released.png"
+  }
+};
