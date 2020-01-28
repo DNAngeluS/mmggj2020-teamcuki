@@ -6,6 +6,8 @@ export class BombGroup extends GameObject {
 
   public group: Phaser.Physics.Arcade.Group;
 
+  private bounceAmount: number = 1;
+
   public load = (scene: Phaser.Scene) => {
     scene.load.image(BombGroup.spriteKey, spriteAssets.bomb);
   };
@@ -18,8 +20,8 @@ export class BombGroup extends GameObject {
     const newBombInstance = <Phaser.Physics.Arcade.Sprite>(
       this.group.create(xPosition, 16, BombGroup.spriteKey)
     );
-    newBombInstance.setBounceY(1);
-    newBombInstance.setCollideWorldBounds(true);
+    newBombInstance.setBounceY(this.bounceAmount);
+    newBombInstance.setCollideWorldBounds(true, this.bounceAmount);
     newBombInstance.setVelocity(Phaser.Math.Between(-200, 200), 20);
   };
 }

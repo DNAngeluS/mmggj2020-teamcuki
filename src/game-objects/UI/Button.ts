@@ -12,6 +12,7 @@ interface ButtonProps {
     x: number;
     y: number;
   };
+  onClick?: () => void;
 }
 
 export class Button extends GameObject {
@@ -22,27 +23,37 @@ export class Button extends GameObject {
   private text: Phaser.GameObjects.Text;
 
   public load(scene: Phaser.Scene) {
-    scene.load.image(Button.pressedSpriteKey, uiAssets.button.pressed);
     scene.load.image(Button.releasedSpriteKey, uiAssets.button.released);
+    scene.load.image(Button.pressedSpriteKey, uiAssets.button.pressed);
   }
 
   public initialize(scene: Phaser.Scene, props?: ButtonProps) {
     const {
       text = "foo",
       position = { x: 0, y: 0 },
-      origin = { x: 0.5, y: 0.5 }
+      origin = { x: 0.5, y: 0.5 },
+      onClick = () => {}
     } = props || {};
 
-    this.sprite = scene.add.sprite(
-      position.x,
-      position.y,
-      Button.releasedSpriteKey
-    );
+    this.sprite = scene.add
+      .sprite(position.x, position.y, Button.releasedSpriteKey)
+      .setInteractive();
     this.sprite.setOrigin(origin.x, origin.y);
+    this.sprite.once("pointerdown", this.setPressedSprite);
+    this.sprite.once("pointerup", () => {
+      onClick();
+      this.setPressedSprite(false);
+    });
     this.text = scene.add.text(position.x, position.y, text, {
       font: "24px Arial",
       fill: "#eeeeee"
     });
     this.text.setOrigin(origin.x, origin.y);
   }
+
+  private setPressedSprite = (isPressed: boolean = true) => {
+    this.sprite.setTexture(
+      isPressed ? Button.pressedSpriteKey : Button.releasedSpriteKey
+    );
+  };
 }

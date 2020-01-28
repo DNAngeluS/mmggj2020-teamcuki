@@ -20,15 +20,14 @@ export class MenuScene extends Phaser.Scene {
       position: {
         x: game.scale.width / 2,
         y: game.scale.height / 2
-      }
+      },
+      onClick: this.startGame
     });
-
-    this.input.once("pointerdown", () => this.scene.start(GameplayScene.name));
   }
 
-  public update() {
-    // TODO
-  }
+  private startGame = () => {
+    this.scene.start(GameplayScene.name);
+  };
 }
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
