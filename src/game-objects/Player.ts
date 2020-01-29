@@ -6,8 +6,10 @@ export class Player extends GameObject {
   public static spriteKey: string = spriteAssets.player.toString();
 
   public sprite: Phaser.Physics.Arcade.Sprite;
+
   private movementSpeed: number = 160;
   private jumpForce: number = 330;
+  private isDead: boolean = false;
   private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
 
   private readonly animations = {
@@ -63,6 +65,8 @@ export class Player extends GameObject {
   };
 
   public update = () => {
+    if (this.isDead) return;
+
     if (this.cursors.left!.isDown) {
       this.moveTowards(-1);
     } else if (this.cursors.right!.isDown) {
@@ -74,6 +78,12 @@ export class Player extends GameObject {
     if (this.cursors.up!.isDown || this.cursors.space!.isDown) {
       this.performJump();
     }
+  };
+
+  public die = () => {
+    this.isDead = true;
+    this.sprite.anims.play(this.animations.idle);
+    this.sprite.setTint(0xff0000);
   };
 
   private setIdleState = () => {

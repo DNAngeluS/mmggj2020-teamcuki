@@ -73,10 +73,10 @@ export class GameplayScene extends Phaser.Scene {
   };
 
   private collectStar = (
-    player: Phaser.GameObjects.GameObject,
-    star: Phaser.Physics.Arcade.Sprite
+    playerSprite: Phaser.GameObjects.GameObject,
+    starSprite: Phaser.Physics.Arcade.Sprite
   ) => {
-    star.disableBody(true, true);
+    starSprite.disableBody(true, true);
     this.addScore();
 
     if (this.starGroup.group.countActive() === 0) {
@@ -96,12 +96,11 @@ export class GameplayScene extends Phaser.Scene {
   };
 
   private hitBomb = (
-    player: Phaser.GameObjects.Sprite,
-    bomb: Phaser.GameObjects.GameObject
+    playerSprite: Phaser.GameObjects.Sprite,
+    bombGameObject: Phaser.GameObjects.GameObject
   ) => {
     this.physics.pause();
-    player.setTint(0xff0000);
-    player.anims.play("turn");
+    this.player.die();
   };
 
   private addScore = () => {
