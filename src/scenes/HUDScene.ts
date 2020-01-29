@@ -5,6 +5,11 @@ export enum HUDSceneEvents {
 }
 
 export class HUDScene extends Phaser.Scene {
+  private static fontParams = {
+    font: "48px Arial",
+    fill: "#eeeeee"
+  };
+
   private scoreText: Phaser.GameObjects.Text;
 
   constructor() {
@@ -12,11 +17,9 @@ export class HUDScene extends Phaser.Scene {
   }
 
   public create() {
-    this.scoreText = this.add.text(10, 10, "Score: 0", {
-      font: "48px Arial",
-      fill: "#eeeeee"
-    });
+    this.scoreText = this.add.text(10, 10, "SCORE_TEXT", HUDScene.fontParams);
 
+    this.updateScoreText(0);
     this.events.on(HUDSceneEvents.updateScoreText, this.updateScoreText);
   }
 

@@ -41,22 +41,20 @@ export class GameplayScene extends Phaser.Scene {
     this.bombGroup.initialize(this);
 
     this.physics.add.collider(this.player.sprite, this.platformGroup.group);
-
+    this.physics.add.collider(this.bombGroup.group, this.platformGroup.group);
     this.physics.add.collider(this.starGroup.group, this.platformGroup.group);
+
+    this.physics.add.collider(
+      this.player.sprite,
+      this.bombGroup.group,
+      this.hitBomb
+    );
+
     this.physics.add.overlap(
       this.player.sprite,
       this.starGroup.group,
       (player, star) => {
         this.collectStar(player, <Phaser.Physics.Arcade.Sprite>star);
-      }
-    );
-
-    this.physics.add.collider(this.bombGroup.group, this.platformGroup.group);
-    this.physics.add.collider(
-      this.player.sprite,
-      this.bombGroup.group,
-      (player, bomb) => {
-        this.hitBomb(<Phaser.GameObjects.Sprite>player, bomb);
       }
     );
   }
@@ -95,10 +93,7 @@ export class GameplayScene extends Phaser.Scene {
     }
   };
 
-  private hitBomb = (
-    playerSprite: Phaser.GameObjects.Sprite,
-    bombGameObject: Phaser.GameObjects.GameObject
-  ) => {
+  private hitBomb = () => {
     this.physics.pause();
     this.player.die();
   };

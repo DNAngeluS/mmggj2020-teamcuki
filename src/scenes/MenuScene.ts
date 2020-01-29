@@ -25,6 +25,10 @@ export class MenuScene extends Phaser.Scene {
     });
   }
 
+  public update() {
+    // Don't do anything
+  }
+
   private startGame = () => {
     this.scene.start(GameplayScene.name);
   };
