@@ -1,7 +1,7 @@
 import * as Phaser from 'phaser';
 import { GameObject } from './GameObject';
 
-import { playerAssets } from '../assets/player';
+import { playerAssets } from 'assets/player';
 
 export class Player extends GameObject {
 	public static spriteKey = playerAssets.PLAYER.toString();

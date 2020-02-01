@@ -1,7 +1,6 @@
 import * as Phaser from 'phaser';
 import { HUDScene, HUDSceneEvents } from './HUDScene';
-import { Background, Player } from '../game-objects/';
-import { BoardColiders } from '../game-objects/';
+import { Background, BoardColiders, Player } from 'game-objects';
 
 export class WorldScene extends Phaser.Scene {
 	private hud: Phaser.Scene;
