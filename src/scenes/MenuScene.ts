@@ -6,21 +6,17 @@ export class MenuScene extends Phaser.Scene {
 		super(sceneConfig);
 	}
 
-	public preload() {}
+	preload() {
+		this.load.image('background', 'assets/cartridge.jpg');
+	}
 
-	public create() {
-		this.add.rectangle(
-			Phaser.Math.Between(0, window.innerWidth),
-			Phaser.Math.Between(0, innerHeight),
-			100,
-			100,
-			0x1212de
-		);
+	create() {
+		this.add.image(800, 720, 'background');
 
 		this.input.once('pointerdown', () => this.scene.start(WorldScene.name));
 	}
 
-	public update() {
+	update() {
 		// TODO
 	}
 }

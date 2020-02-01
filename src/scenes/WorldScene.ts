@@ -4,12 +4,13 @@ export class WorldScene extends Phaser.Scene {
 	constructor() {
 		super(sceneConfig);
 	}
+	preload() {}
 
-	public create() {
-		this.add.rectangle(400, 400, 100, 100, 0xffffff);
+	create() {
+		this.add.rectangle(800, 600, 40, 40, 0xffffff);
 	}
 
-	public update() {
+	update() {
 		// TODO
 	}
 }
