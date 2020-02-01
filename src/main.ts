@@ -1,4 +1,4 @@
-import * as Phaser from "phaser";
-import { gameConfig } from "./gameConfig";
+import * as Phaser from 'phaser';
+import { mainConfig } from './config';
 
-export const game = new Phaser.Game(gameConfig);
+export const game = new Phaser.Game(mainConfig);
