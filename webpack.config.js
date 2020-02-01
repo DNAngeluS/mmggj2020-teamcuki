@@ -14,7 +14,15 @@ module.exports = {
 				test: /\.tsx?$/,
 				use: 'ts-loader',
 				exclude: /node_modules/
-			}
+			},
+			{
+				test: /\.(gif|png|jpe?g|svg|xml)$/i,
+				use: "file-loader"
+			},
+			{
+				test: [/\.vert$/, /\.frag$/],
+				use: "raw-loader"
+			},
 		]
 	},
 
@@ -33,6 +41,7 @@ module.exports = {
 
 	devServer: {
 		contentBase: path.resolve(__dirname, 'dist'),
+		host: '0.0.0.0',
 		https: false
 	},
 
@@ -43,7 +52,7 @@ module.exports = {
 				to: path.resolve(__dirname, 'dist')
 			},
 			{
-				from: path.resolve(__dirname, 'assets', '**', '*'),
+				from: path.resolve(__dirname, 'src/assets', '**', '*'),
 				to: path.resolve(__dirname, 'dist')
 			}
 		]),

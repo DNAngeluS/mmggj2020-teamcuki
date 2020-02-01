@@ -1,19 +1,22 @@
 import * as Phaser from 'phaser';
-import { WorldScene } from './WorldScene';
+// import { WorldScene } from './WorldScene';
+import { Background } from '../game-objects/';
 
 export class MenuScene extends Phaser.Scene {
+	private background: Background = new Background();
+
 	constructor() {
 		super(sceneConfig);
 	}
 
 	preload() {
-		this.load.image('background', 'assets/cartridge.jpg');
+		this.background.load(this);
 	}
 
 	create() {
-		this.add.image(800, 720, 'background');
+		this.background.initialize(this);
 
-		this.input.once('pointerdown', () => this.scene.start(WorldScene.name));
+		// this.input.once('pointerdown', () => this.scene.start(WorldScene.name));
 	}
 
 	update() {
