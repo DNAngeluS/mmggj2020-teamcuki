@@ -9,7 +9,7 @@ export class WorldScene extends Phaser.Scene {
 	constructor() {
 		super(sceneConfig);
 	}
-	preload() {}
+	preload() { }
 
 	create() {
 		this.hud = this.scene.get(HUDScene.name);

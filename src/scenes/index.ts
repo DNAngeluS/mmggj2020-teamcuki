@@ -1,5 +1,5 @@
 import { MenuScene } from './MenuScene';
-import { HUDScene } from './HUDScene';
-import { WorldScene } from './WorldScene';
+// import { HUDScene } from './HUDScene';
+// import { WorldScene } from './WorldScene';
 
-export const gameScenes = [MenuScene, WorldScene, HUDScene];
+export const gameScenes = [MenuScene];
