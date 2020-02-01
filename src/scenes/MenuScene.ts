@@ -1,30 +1,32 @@
-import * as Phaser from "phaser";
-import { GameplayScene } from "./GameplayScene";
+import * as Phaser from 'phaser';
+import { WorldScene } from './WorldScene';
 
 export class MenuScene extends Phaser.Scene {
-  constructor() {
-    super(sceneConfig);
-  }
+	constructor() {
+		super(sceneConfig);
+	}
 
-  public create() {
-    this.add.rectangle(
-      Phaser.Math.Between(0, window.innerWidth),
-      Phaser.Math.Between(0, innerHeight),
-      100,
-      100,
-      0x1212de
-    );
+	public preload() {}
 
-    this.input.once("pointerdown", () => this.scene.start(GameplayScene.name));
-  }
+	public create() {
+		this.add.rectangle(
+			Phaser.Math.Between(0, window.innerWidth),
+			Phaser.Math.Between(0, innerHeight),
+			100,
+			100,
+			0x1212de
+		);
 
-  public update() {
-    // TODO
-  }
+		this.input.once('pointerdown', () => this.scene.start(WorldScene.name));
+	}
+
+	public update() {
+		// TODO
+	}
 }
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
-  active: false,
-  visible: false,
-  key: MenuScene.name
+	active: false,
+	visible: false,
+	key: MenuScene.name
 };

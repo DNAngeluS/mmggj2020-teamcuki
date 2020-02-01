@@ -1,4 +1,4 @@
-import { MenuScene } from "./MenuScene";
-import { GameplayScene } from "./GameplayScene";
+import { MenuScene } from './MenuScene';
+import { WorldScene } from './WorldScene';
 
-export const gameScenes = [MenuScene, GameplayScene];
+export const gameScenes = [MenuScene, WorldScene];
