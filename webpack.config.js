@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
 	entry: {
@@ -17,19 +18,20 @@ module.exports = {
 			},
 			{
 				test: /\.(gif|png|jpe?g|svg|xml)$/i,
-				use: "file-loader"
+				use: 'file-loader'
 			},
 			{
 				test: [/\.vert$/, /\.frag$/],
-				use: "raw-loader"
-			},
+				use: 'raw-loader'
+			}
 		]
 	},
 
 	devtool: 'inline-source-map',
 
 	resolve: {
-		extensions: ['.ts', '.tsx', '.js']
+		extensions: ['.ts', '.tsx', '.js'],
+		plugins: [new TsconfigPathsPlugin()]
 	},
 
 	output: {
