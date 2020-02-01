@@ -11,6 +11,6 @@ export const boardAssets = {
 	RESISTOR: '/src/assets/board/resistor.png',
 	RESISTOR_ACTIVE: '/src/assets/board/blank.png',
 	USER: '/src/assets/board/user.png',
-	VOID: '/src/assets/board/vodi.png',
+	VOID: '/src/assets/board/void.png',
 	BG: '/src/assets/board/bg.png'
 };

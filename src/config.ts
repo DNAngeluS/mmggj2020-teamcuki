@@ -7,8 +7,8 @@ export const mainConfig: Phaser.Types.Core.GameConfig = {
 	scale: {
 		// width: window.innerWidth,
 		// height: window.innerHeight
-		width: 1600,
-		height: 1440
+		width: 1920,
+		height: 1080
 	},
 	physics: {
 		default: 'arcade',
