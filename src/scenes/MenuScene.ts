@@ -1,5 +1,5 @@
 import * as Phaser from 'phaser';
-// import { WorldScene } from './WorldScene';
+import { WorldScene } from './WorldScene';
 import { Background } from '../game-objects/';
 
 export class MenuScene extends Phaser.Scene {
@@ -16,7 +16,7 @@ export class MenuScene extends Phaser.Scene {
 	create() {
 		this.background.initialize(this);
 
-		// this.input.once('pointerdown', () => this.scene.start(WorldScene.name));
+		this.input.once('pointerdown', () => this.scene.start(WorldScene.name));
 	}
 
 	update() {

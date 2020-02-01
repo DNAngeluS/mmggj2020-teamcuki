@@ -1,4 +1,5 @@
 import { Background } from './Background';
 import { GameObject } from './GameObject';
+import { Player } from './Player';
 
-export { Background, GameObject };
+export { GameObject, Background, Player };
