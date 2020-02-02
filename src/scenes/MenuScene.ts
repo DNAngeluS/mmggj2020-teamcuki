@@ -2,10 +2,12 @@ import * as Phaser from 'phaser';
 import { WorldScene } from './WorldScene';
 import { Background } from '../game-objects/';
 import { BoardColiders } from '../game-objects/';
+// import { StraightCable } from '../game-objects/pieces/StraightCable';
 
 export class MenuScene extends Phaser.Scene {
 	private background: Background = new Background();
 	private boardColiders: BoardColiders = new BoardColiders();
+	// private straightCable: StraightCable = new StraightCable();
 
 	constructor() {
 		super(sceneConfig);
@@ -14,11 +16,13 @@ export class MenuScene extends Phaser.Scene {
 	preload() {
 		this.background.load(this);
 		this.boardColiders.load(this);
+		// this.straightCable.load(this);
 	}
 
 	create() {
 		this.background.initialize(this);
 		this.boardColiders.initialize(this);
+		// this.straightCable.initialize(this);
 
 		this.buildBoard();
 

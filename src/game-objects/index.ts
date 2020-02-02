@@ -2,6 +2,7 @@ import { Background } from './Background';
 import { BoardColiders } from './BoardColiders';
 import { GameObject } from './GameObject';
 import { Player } from './Player';
+import { Pieces } from './pieces/Pieces';
 
 export const GRID_SIZE = 84;
 
@@ -15,4 +16,4 @@ export const gridToCanvas = ({ gridX, gridY }: { gridX: number; gridY: number })
 	};
 };
 
-export { GameObject, Background, BoardColiders, Player };
+export { GameObject, Background, BoardColiders, Player, Pieces };

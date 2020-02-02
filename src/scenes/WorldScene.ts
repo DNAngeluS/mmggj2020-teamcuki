@@ -1,7 +1,6 @@
 import * as Phaser from 'phaser';
 import { HUDScene, HUDSceneEvents } from './HUDScene';
-import { Background, Player } from '../game-objects/';
-import { BoardColiders } from '../game-objects/';
+import { Background, Player, BoardColiders, Pieces } from '../game-objects/';
 
 export class WorldScene extends Phaser.Scene {
 	private hud: Phaser.Scene;
@@ -11,6 +10,7 @@ export class WorldScene extends Phaser.Scene {
 	private player: Player = new Player();
 	private worldGroup: Phaser.Physics.Arcade.StaticGroup;
 	private boardColiders: BoardColiders = new BoardColiders();
+	private pieces: Pieces = new Pieces();
 
 	constructor() {
 		super(sceneConfig);
@@ -18,6 +18,8 @@ export class WorldScene extends Phaser.Scene {
 	preload() {
 		this.background.load(this);
 		this.player.load(this);
+		this.boardColiders.load(this);
+		this.pieces.load(this);
 	}
 
 	create() {
@@ -27,6 +29,7 @@ export class WorldScene extends Phaser.Scene {
 		this.background.initialize(this);
 		this.boardColiders.initialize(this);
 		this.player.initialize(this);
+		this.pieces.initialize(this);
 
 		this.worldGroup = this.physics.add.staticGroup();
 
@@ -69,6 +72,19 @@ export class WorldScene extends Phaser.Scene {
 			{ gridX: 18, gridY: 11 },
 			{ gridX: 19, gridY: 11 }
 		].forEach(this.boardColiders.createVoid);
+
+		[
+			{
+				type: 'curve',
+				gridX: 1,
+				gridY: 1
+			},
+			{
+				type: 'line',
+				gridX: 1,
+				gridY: 2
+			}
+		].forEach(this.pieces.createPiece);
 	};
 }
 
