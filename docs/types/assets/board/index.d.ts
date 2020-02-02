@@ -11,5 +11,6 @@ export declare const boardAssets: {
     USER: string;
     VOID: string;
     BG: string;
+    CREDITS: string;
 };
 //# sourceMappingURL=index.d.ts.map
