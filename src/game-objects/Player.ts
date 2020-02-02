@@ -11,6 +11,8 @@ export class Player extends GameObject {
 	public static keyTake = playerAssets.TAKE.toString();
 	public static keyWithObject = playerAssets.WITH_OBJECT.toString();
 	public pieces: any;
+	public playMoveSound: any;
+	public playPickup: any;
 	public isCarryng = false;
 	public isAnimating = false;
 
@@ -63,8 +65,13 @@ export class Player extends GameObject {
 		});
 	};
 
-	public initialize = (scene: Phaser.Scene, pieces: any) => {
+	public initialize = (
+		scene: Phaser.Scene,
+		{ pieces, playMoveSound, playPickup }: { pieces: any; playMoveSound: any; playPickup: any }
+	) => {
 		this.pieces = pieces;
+		this.playMoveSound = playMoveSound;
+		this.playPickup = playPickup;
 		const { x, y } = gridToCanvas(this.position);
 		this.sprite = scene.physics.add.sprite(x, y, Player.key);
 		this.sprite.setSize(GRID_SIZE, GRID_SIZE);
@@ -172,6 +179,10 @@ export class Player extends GameObject {
 		const canMove = !GridManager.voids.getID(nextPosition);
 
 		if (canMove && !this.isAnimating) {
+			if (this.position.gridX !== nextPosition.gridX || this.position.gridY !== nextPosition.gridY) {
+				this.playMoveSound();
+			}
+
 			this.position = nextPosition;
 			this.moveTowards();
 		}
@@ -182,6 +193,7 @@ export class Player extends GameObject {
 				this.isCarryng = false;
 				this.isAnimating = true;
 				this.sprite.anims.play(this.animations.drop);
+				this.playPickup();
 			}
 		}
 
@@ -208,6 +220,7 @@ export class Player extends GameObject {
 
 		if (this.position.gridX === 0 && this.position.gridY === 1 && !this.isCarryng) {
 			this.sprite.anims.play(this.animations.take);
+			this.playPickup();
 			this.isAnimating = true;
 			this.isCarryng = true;
 		}

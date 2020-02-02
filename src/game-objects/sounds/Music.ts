@@ -28,15 +28,14 @@ export class Music extends MediaObjectWithControls {
 		this.audioThree = scene.sound.add(Music.levelThreeKey, { loop: true });
 		this.audioFour = scene.sound.add(Music.levelFourKey, { loop: true });
 
-		this.audioOne.on('loop', this.handleLoop);
-		this.audioTwo.on('loop', this.handleLoop);
-		this.audioThree.on('loop', this.handleLoop);
-		this.audioFour.on('loop', this.handleLoop);
+		this.audioOne.on('looped', this.handleLoop);
+		this.audioTwo.on('looped', this.handleLoop);
+		this.audioThree.on('looped', this.handleLoop);
+		this.audioFour.on('looped', this.handleLoop);
 	};
 
 	public handleLoop = () => {
 		this.loopCounter += 1;
-		console.log(this.loopCounter);
 
 		if (this.loopCounter === 2) {
 			this.audioOne.stop();
@@ -50,7 +49,7 @@ export class Music extends MediaObjectWithControls {
 
 		if (this.loopCounter === 6) {
 			this.audioThree.stop();
-			this.audioFour.stop();
+			this.audioFour.play();
 		}
 	};
 

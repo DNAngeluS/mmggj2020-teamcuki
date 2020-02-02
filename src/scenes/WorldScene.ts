@@ -45,7 +45,11 @@ export class WorldScene extends Phaser.Scene {
 		this.background.initialize(this);
 		this.boardColiders.initialize(this);
 		this.pieces.initialize(this);
-		this.player.initialize(this, this.pieces);
+		this.player.initialize(this, {
+			pieces: this.pieces,
+			playMoveSound: this.fx.playMove,
+			playPickup: this.fx.playPickuo
+		});
 		this.fx.initialize(this);
 		this.music.initialize(this);
 
@@ -55,7 +59,7 @@ export class WorldScene extends Phaser.Scene {
 
 		this.physics.add.collider(this.boardColiders.group, this.worldGroup);
 
-		this.physics.add.collider(this.player.sprite, this.boardColiders.group, this.hitSound.bind(this));
+		this.physics.add.collider(this.player.sprite, this.boardColiders.group);
 		this.physics.add.collider(this.player.sprite, this.worldGroup);
 
 		// this.add.rectangle(800, 600, 40, 40, 0x00ffff);
@@ -291,10 +295,6 @@ export class WorldScene extends Phaser.Scene {
 			}
 		].forEach(this.pieces.createPiece);
 	};
-
-	private hitSound() {
-		this.fx.play();
-	}
 
 	private initGame() {
 		setTimeout(() => {
