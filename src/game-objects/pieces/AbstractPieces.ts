@@ -1,6 +1,7 @@
 // import * as Phaser from 'phaser';
 import { gridToCanvas } from '../index';
 import GridManager from '../pieces/GridManager';
+import { WorldSceneEvents } from 'scenes/WorldScene';
 
 export enum Direction {
 	TOP,
@@ -41,6 +42,7 @@ export abstract class AbstractPiece {
 	private getPieceById: any;
 	private type: any;
 	private createNewPiece: any;
+	private world: Phaser.Scene;
 
 	constructor({ gridX, gridY, rotation, id, getPieceById, type, createNewPiece }: any) {
 		this.spriteKey = id;
@@ -63,6 +65,7 @@ export abstract class AbstractPiece {
 		this.sprite = scene.add.sprite(x, y, this.spriteKey);
 		this.sprite.angle = RotationDeg(this.rotation);
 		this.sprite.setDepth(11);
+		this.world = scene;
 
 		// anims
 		scene.anims.create({
@@ -158,10 +161,12 @@ export abstract class AbstractPiece {
 
 	public handleGameOver() {
 		console.log('GAME OOOOOOO V    E      R          ! ! ! ! ! ! ! ! ! !');
+		this.world.events.emit(WorldSceneEvents.gameover);
 	}
 
 	public handleGameWin() {
 		console.log('A WINNER IS YOU ! !   !   !    !   !    ! !  ! ! ! ');
+		this.world.events.emit(WorldSceneEvents.gamewin);
 	}
 
 	public place(position: any) {
