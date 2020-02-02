@@ -9,7 +9,10 @@ export enum Direction {
 	LEFT
 }
 
-export const RotationDeg = (rotation: Direction): number => [0, 90, 180, 270][rotation];
+export const RotationDeg = (rotation: Direction): number => {
+	const angles = [0, 90, 180, 270];
+	return angles[rotation % 4];
+};
 
 export enum PieceState {
 	FREE,
@@ -24,6 +27,7 @@ export enum Animations {
 }
 
 export const SPRITE_FRAMES = 12;
+export const FRAME_RATE = 5;
 
 export abstract class AbstractPiece {
 	abstract activeBorders: { in: Direction; out: Direction } | null = null;
@@ -34,11 +38,17 @@ export abstract class AbstractPiece {
 	private rotation: Direction = Direction.TOP;
 	private position: { gridX: number; gridY: number };
 	private sprite: Phaser.GameObjects.Sprite;
+	private getPieceById: any;
+	private type: any;
+	private createNewPiece: any;
 
-	constructor({ gridX, gridY, rotation, id }: any) {
+	constructor({ gridX, gridY, rotation, id, getPieceById, type, createNewPiece }: any) {
 		this.spriteKey = id;
 		this.position = { gridX, gridY };
 		this.rotation = rotation;
+		this.getPieceById = getPieceById;
+		this.type = type;
+		this.createNewPiece = createNewPiece;
 	}
 
 	// public load = (scene: Phaser.Scene) => {
@@ -61,26 +71,32 @@ export abstract class AbstractPiece {
 
 		scene.anims.create({
 			key: `${this.spriteKey}-${Animations.DONE}`,
-			frames: [{ key: this.assetURL.toString(), frame: SPRITE_FRAMES + 1 }]
+			frames: scene.anims.generateFrameNumbers(this.assetURL.toString(), {
+				start: 11,
+				end: 23
+			}),
+			frameRate: FRAME_RATE * 2,
+			repeat: -1
 		});
+
 		const fillingAni = scene.anims.create({
 			key: `${this.spriteKey}-${Animations.FILLING}`,
 			frames: scene.anims.generateFrameNumbers(this.assetURL.toString(), {
 				start: 1,
-				end: SPRITE_FRAMES
+				end: 11
 			}),
-			frameRate: 50,
+			frameRate: FRAME_RATE,
 			repeat: 0
 		});
 
-		fillingAni && fillingAni.on('complete', this.setDone);
+		fillingAni && fillingAni!.on('complete', this.setDone);
 
 		this.sprite.anims.play(`${this.spriteKey}-${Animations.IDLE}`);
 	};
 
 	public rotate() {
-		this.rotation + 1;
-		this.sprite && (this.sprite.angle = RotationDeg(this.rotation));
+		this.rotation = this.rotation + 1;
+		this.sprite!.angle = RotationDeg(this.rotation);
 	}
 
 	public moveTo({ gridX, gridY }: { gridX: number; gridY: number }) {
@@ -96,11 +112,52 @@ export abstract class AbstractPiece {
 			gridY: this.position.gridY,
 			direction: this.getActiveBorders()!.out
 		});
-		console.log('nextPiece', nextPiece);
+
+		if (!nextPiece) {
+			this.handleGameOver();
+		} else {
+			this.getPieceById(nextPiece).handleGoNext(this);
+		}
 	};
+
+	public handleGoNext(oldPiece: AbstractPiece) {
+		const oldBorders = oldPiece.getActiveBorders();
+		const newBoders = this.getActiveBorders();
+		const outDirection = (oldBorders!.out + 2) % 4;
+
+		if (![newBoders!.out, newBoders!.in].includes(outDirection)) {
+			this.handleGameOver();
+			return;
+		}
+		if (newBoders!.in !== outDirection) {
+			this.rotateForFlow();
+			return;
+		}
+
+		this.setActive();
+	}
+
+	public rotateForFlow() {
+		if (this.type === 'line') {
+			this.rotate();
+			this.rotate();
+		}
+
+		if (this.type === 'curve') {
+			this.sprite.scaleY = -1;
+			this.rotate();
+		}
+
+		this.setActive();
+	}
+
+	public handleGameOver() {
+		console.log('GAME OOOOOOO V    E      R          ! ! ! ! ! ! ! ! ! !');
+	}
 
 	public place() {
 		this.state = PieceState.SET;
+		this.createNewPiece();
 	}
 
 	public setActive() {
@@ -113,8 +170,8 @@ export abstract class AbstractPiece {
 	public getActiveBorders = (): { in: Direction; out: Direction } | null =>
 		this.activeBorders
 			? {
-					in: this.activeBorders.in + this.rotation,
-					out: this.activeBorders.out + this.rotation
+					in: (this.activeBorders.in + this.rotation) % 4,
+					out: (this.activeBorders.out + this.rotation) % 4
 			  }
 			: null;
 }

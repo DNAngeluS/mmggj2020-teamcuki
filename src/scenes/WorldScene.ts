@@ -149,7 +149,29 @@ export class WorldScene extends Phaser.Scene {
 				id: 'line-1',
 				type: 'line',
 				gridX: 15,
-				gridY: 6
+				gridY: 6,
+				rotation: 2
+			},
+			{
+				id: 'curve-0',
+				type: 'curve',
+				gridX: 15,
+				gridY: 5,
+				rotation: 1
+			},
+			{
+				id: 'line-2',
+				type: 'line',
+				gridX: 14,
+				gridY: 5,
+				rotation: 3
+			},
+			{
+				id: 'curve-1',
+				type: 'curve',
+				gridX: 13,
+				gridY: 5,
+				rotation: 3
 			}
 		].forEach(this.pieces.createPiece);
 	};
@@ -160,6 +182,7 @@ export class WorldScene extends Phaser.Scene {
 
 	private initGame() {
 		this.pieces.pieces['line-0'].setActive();
+		this.pieces.createNewPiece();
 	}
 }
 

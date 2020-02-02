@@ -29,13 +29,34 @@ export class Pieces extends GameObject {
 		sprite && this.group.add(sprite);
 	};
 
+	public getPieceById = (id: string) => this.pieces[id];
+
+	public createNewPiece = () => {
+		this.createPiece({
+			id: new Date().getTime(),
+			gridX: 0,
+			gridY: 1,
+			type: Math.random() < 0.5 ? 'line' : 'curve'
+		});
+	};
+
 	public createPiece = ({ id, type, gridX, gridY, rotation = Direction.TOP }: any) => {
 		let piece: AbstractPiece | null = null;
+		const props = {
+			gridX,
+			gridY,
+			rotation,
+			id,
+			type,
+			createNewPiece: this.createNewPiece,
+			getPieceById: this.getPieceById
+		};
+
 		if (type === 'line') {
-			piece = new StraightCable({ gridX, gridY, rotation, id });
+			piece = new StraightCable(props);
 		}
 		if (type === 'curve') {
-			piece = new CurveCable({ gridX, gridY, rotation, id });
+			piece = new CurveCable(props);
 		}
 
 		if (piece) {
