@@ -34,8 +34,9 @@ export abstract class AbstractPiece {
 	private position: { gridX: number; gridY: number };
 	private sprite: Phaser.GameObjects.Sprite;
 
-	constructor(position: { gridX: number; gridY: number }) {
-		this.position = position;
+	constructor({ gridX, gridY, rotation }: any) {
+		this.position = { gridX, gridY };
+		this.rotation = rotation;
 	}
 
 	// public load = (scene: Phaser.Scene) => {

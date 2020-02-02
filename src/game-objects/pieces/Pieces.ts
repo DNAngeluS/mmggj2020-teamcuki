@@ -1,11 +1,12 @@
 import { GameObject, GRID_SIZE } from '../index';
 import { StraightCable } from './StraightCable';
 import { CurveCable } from './CurveCable';
-import { AbstractPiece } from './AbstractPieces';
+import { AbstractPiece, Direction } from './AbstractPieces';
 import { boardAssets } from '../../assets/board';
 
 export class Pieces extends GameObject {
 	public group: Phaser.Physics.Arcade.Group;
+	private pieces: AbstractPiece[] = [];
 	private scene: any;
 
 	public load = (scene: Phaser.Scene) => {
@@ -27,16 +28,17 @@ export class Pieces extends GameObject {
 		sprite && this.group.add(sprite);
 	};
 
-	public createPiece = ({ type, gridX, gridY }: any) => {
+	public createPiece = ({ type, gridX, gridY, rotation = Direction.TOP }: any) => {
 		let piece: AbstractPiece | null = null;
 		if (type === 'line') {
-			piece = new StraightCable({ gridX, gridY });
+			piece = new StraightCable({ gridX, gridY, rotation });
 		}
 		if (type === 'curve') {
-			piece = new CurveCable({ gridX, gridY });
+			piece = new CurveCable({ gridX, gridY, rotation });
 		}
 
 		if (piece) {
+			this.pieces.push(piece);
 			piece.initialize(this.scene);
 			this.addToGroup(piece.getSprite());
 		}
