@@ -2,6 +2,7 @@ import * as Phaser from 'phaser';
 import { boardAssets } from '../assets/board';
 import { GameObject } from './GameObject';
 import { gridToCanvas } from './index';
+import GridManager from './pieces/GridManager';
 // import { game } from '../main';
 
 export class BoardColiders extends GameObject {
@@ -20,5 +21,6 @@ export class BoardColiders extends GameObject {
 		const { x, y } = gridToCanvas({ gridX, gridY });
 		// const voidGrid: Phaser.Physics.Arcade.Image =
 		this.group.create(x, y, BoardColiders.voidSpriteKey);
+		GridManager.voids.addToGrid({ gridX, gridY, id: `${gridX}${gridY}` });
 	};
 }

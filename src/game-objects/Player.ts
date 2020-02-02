@@ -2,30 +2,43 @@ import * as Phaser from 'phaser';
 
 import { playerAssets } from 'assets/player';
 import { GameObject } from './GameObject';
+import { GRID_SIZE, gridToCanvas } from 'game-objects';
+import GridManager from './pieces/GridManager';
 
 export class Player extends GameObject {
 	public static key = playerAssets.PLAYER.toString();
+	public static keyDrop = playerAssets.DROP.toString();
+	public static keyTake = playerAssets.TAKE.toString();
+	public static keyWithObject = playerAssets.WITH_OBJECT.toString();
+	public pieces: any;
+	public isCarryng = false;
+	public isAnimating = false;
 
 	public sprite: Phaser.Physics.Arcade.Sprite;
 
 	// private movementSpeed: number = 900;
-	private gridSquare = {
-		width: 84,
-		height: 84
-	};
-	private initialPos = {
-		x: 366,
-		y: 294
+	// private gridSquare = {
+	// 	width: GRID_SIZE,
+	// 	height: GRID_SIZE
+	// };
+	private position = {
+		gridX: 2, //366,
+		gridY: 1 //294
 	};
 	// private jumpForce: number = 330;
 	private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
+	private drop: Phaser.Input.Keyboard.Key;
+	private rotate: Phaser.Input.Keyboard.Key;
 	private isKeyDown: boolean;
 	// private presedKey: Phaser.Input.Keyboard.Key;
 
 	private readonly animations = {
 		left: 'left',
 		right: 'right',
-		idle: 'idle'
+		idle: 'idle',
+		withObject: 'withObject',
+		take: 'take',
+		drop: 'drop'
 	};
 
 	public load = (scene: Phaser.Scene) => {
@@ -33,12 +46,31 @@ export class Player extends GameObject {
 			frameWidth: 180,
 			frameHeight: 180
 		});
+
+		scene.load.spritesheet(Player.keyDrop, playerAssets.DROP, {
+			frameWidth: 180,
+			frameHeight: 180
+		});
+
+		scene.load.spritesheet(Player.keyTake, playerAssets.TAKE, {
+			frameWidth: 180,
+			frameHeight: 180
+		});
+
+		scene.load.spritesheet(Player.keyWithObject, playerAssets.WITH_OBJECT, {
+			frameWidth: 180,
+			frameHeight: 180
+		});
 	};
 
-	public initialize = (scene: Phaser.Scene) => {
-		this.sprite = scene.physics.add.sprite(this.initialPos.x, this.initialPos.y, Player.key);
-		this.sprite.setSize(84, 84);
+	public initialize = (scene: Phaser.Scene, pieces: any) => {
+		this.pieces = pieces;
+		const { x, y } = gridToCanvas(this.position);
+		this.sprite = scene.physics.add.sprite(x, y, Player.key);
+		this.sprite.setSize(GRID_SIZE, GRID_SIZE);
 		this.cursors = scene.input.keyboard.createCursorKeys();
+		this.rotate = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
+		this.drop = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
 		scene.input.on('keydown', this.handleKeyPress.bind(this));
 		this.isKeyDown = false;
 		// physics
@@ -76,42 +108,88 @@ export class Player extends GameObject {
 			repeat: -1
 		});
 
-		scene.anims.create;
+		scene.anims.create({
+			key: this.animations.withObject,
+			frames: scene.anims.generateFrameNumbers(Player.keyWithObject, { start: 0, end: 95 }),
+			frameRate: 20,
+			repeat: -1
+		});
+
+		const takeAni = scene.anims.create({
+			key: this.animations.take,
+			frames: scene.anims.generateFrameNumbers(Player.keyTake, { start: 0, end: 9 }),
+			frameRate: 23,
+			repeat: 0
+		});
+
+		const dropAni = scene.anims.create({
+			key: this.animations.drop,
+			frames: scene.anims.generateFrameNumbers(Player.keyDrop, { start: 0, end: 10 }),
+			frameRate: 23,
+			repeat: 0
+		});
+
+		takeAni &&
+			takeAni.on('complete', () => {
+				this.sprite.anims.play(this.animations.withObject);
+				this.isAnimating = false;
+			});
+		dropAni &&
+			dropAni.on('complete', () => {
+				this.sprite.anims.play(this.animations.idle);
+				this.isAnimating = false;
+			});
+
+		this.setIdleState();
 	};
 
 	public update = () => {
-		var moveUp = this.cursors.up!.isDown && Phaser.Input.Keyboard.JustDown(this.cursors.up!);
-		var moveDown = this.cursors.down!.isDown && Phaser.Input.Keyboard.JustDown(this.cursors.down!);
-		var moveLeft = this.cursors.left!.isDown && Phaser.Input.Keyboard.JustDown(this.cursors.left!);
-		var moveRight = this.cursors.right!.isDown && Phaser.Input.Keyboard.JustDown(this.cursors.right!);
+		var moveUp = Phaser.Input.Keyboard.JustDown(this.cursors.up!);
+		var moveDown = Phaser.Input.Keyboard.JustDown(this.cursors.down!);
+		var moveLeft = Phaser.Input.Keyboard.JustDown(this.cursors.left!);
+		var moveRight = Phaser.Input.Keyboard.JustDown(this.cursors.right!);
 
-		const forward = new Phaser.Math.Vector2(1, 1);
-		let impulse = new Phaser.Math.Vector2(0, 0);
+		var rotatePiece = Phaser.Input.Keyboard.JustDown(this.rotate!);
+		var dropPiece = Phaser.Input.Keyboard.JustDown(this.drop!);
+
+		// const forward = new Phaser.Math.Vector2(1, 1);
+		// let impulse = new Phaser.Math.Vector2(0, 0);
+		let nextPosition = { ...this.position };
 
 		if (moveLeft) {
-			impulse.x += -forward.x;
+			// impulse.x += -forward.x;
+			nextPosition = { gridX: this.position.gridX - 1, gridY: this.position.gridY };
 		}
 		if (moveRight) {
-			impulse.x += forward.x;
+			nextPosition = { gridX: this.position.gridX + 1, gridY: this.position.gridY };
 		}
 		if (moveUp) {
-			impulse.y += -forward.y;
+			nextPosition = { gridX: this.position.gridX, gridY: this.position.gridY - 1 };
 		}
 		if (moveDown) {
-			impulse.y += forward.y;
+			nextPosition = { gridX: this.position.gridX, gridY: this.position.gridY + 1 };
+		}
+		const canMove = !GridManager.voids.getID(nextPosition);
+
+		if (canMove && !this.isAnimating) {
+			this.position = nextPosition;
+			this.moveTowards();
 		}
 
-		// if (!(moveLeft || moveRight || moveUp || moveDown)) {
-		// 	this.setIdleState();
-		// }
+		if (dropPiece) {
+			if (this.isCarryng && !GridManager.pieces.getID(this.position)) {
+				this.pieces.getActivePiece().place(this.position);
+				this.isCarryng = false;
+				this.isAnimating = true;
+				this.sprite.anims.play(this.animations.drop);
+			}
+		}
 
-		this.setIdleState();
-		// if (this.cursors.up!.isDown || this.cursors.space!.isDown) {
-		// 	this.performJump();
-		// }
-		// this.sprite.anims.play(this.animations.idle, true);
-
-		this.moveTowards(impulse);
+		if (rotatePiece) {
+			if (this.isCarryng) {
+				this.pieces.getActivePiece().rotate();
+			}
+		}
 	};
 
 	private handleKeyPress(event: KeyboardEvent) {
@@ -124,16 +202,18 @@ export class Player extends GameObject {
 		this.sprite.anims.play(this.animations.idle, true);
 	};
 
-	private moveTowards = (direction: Phaser.Math.Vector2) => {
-		const movX = direction.x * this.gridSquare.width + this.sprite.x;
-		const movY = direction.y * this.gridSquare.height + this.sprite.y;
-		this.sprite.setPosition(movX, movY);
-		// this.sprite.setVelocity(direction.x, direction.y);
-		// this.sprite.setVelocityX(this.movementSpeed * direction);
-		// this.sprite.anims.play(direction.lengthSq > 0 ? this.animations.right : this.animations.left, true);
-	};
+	private moveTowards = () => {
+		const { x, y } = gridToCanvas(this.position);
+		this.sprite.setPosition(x, y);
 
-	// private performJump = () => {
-	// 	if (this.sprite.body.touching.down) this.sprite.setVelocityY(-this.jumpForce);
-	// };
+		if (this.position.gridX === 0 && this.position.gridY === 1 && !this.isCarryng) {
+			this.sprite.anims.play(this.animations.take);
+			this.isAnimating = true;
+			this.isCarryng = true;
+		}
+
+		if (this.isCarryng) {
+			this.pieces.getActivePiece().moveTo(this.position);
+		}
+	};
 }
