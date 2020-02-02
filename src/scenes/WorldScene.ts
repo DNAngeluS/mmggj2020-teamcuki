@@ -41,10 +41,10 @@ export class WorldScene extends Phaser.Scene {
 
 		this.buildBoard();
 
-		this.physics.add.collider(this.player.sprite, this.worldGroup);
 		this.physics.add.collider(this.boardColiders.group, this.worldGroup);
 
 		this.physics.add.collider(this.player.sprite, this.boardColiders.group, this.hitSound.bind(this));
+		this.physics.add.collider(this.player.sprite, this.worldGroup);
 
 		// this.add.rectangle(800, 600, 40, 40, 0x00ffff);
 		this.input.on('pointerdown', this.addScore);

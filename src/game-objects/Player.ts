@@ -1,14 +1,15 @@
 import * as Phaser from 'phaser';
-import { GameObject } from './GameObject';
 
 import { playerAssets } from 'assets/player';
+import { game } from 'main';
+import { GameObject } from './GameObject';
 
 export class Player extends GameObject {
-	public static spriteKey = playerAssets.PLAYER.toString();
+	public static key = playerAssets.PLAYER.toString();
 
 	public sprite: Phaser.Physics.Arcade.Sprite;
 
-	private movementSpeed: number = 260;
+	private movementSpeed: number = 900;
 	// private jumpForce: number = 330;
 	private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
 
@@ -19,44 +20,48 @@ export class Player extends GameObject {
 	};
 
 	public load = (scene: Phaser.Scene) => {
-		scene.load.spritesheet(Player.spriteKey, playerAssets.PLAYER, {
-			frameWidth: 32,
-			frameHeight: 48
+		scene.load.spritesheet(Player.key, playerAssets.STANDING, {
+			frameWidth: 180,
+			frameHeight: 180
 		});
 	};
 
 	public initialize = (scene: Phaser.Scene) => {
-		this.sprite = scene.physics.add.sprite(100, 450, Player.spriteKey);
+		this.sprite = scene.physics.add.sprite(game.canvas.width / 2, game.canvas.height / 2, Player.key);
+		this.sprite.setSize(80, 80);
 		this.cursors = scene.input.keyboard.createCursorKeys();
 
 		// physics
-		this.sprite.setBounce(0.15);
+		this.sprite.setBounce(100);
+		this.sprite.setFriction(500);
+		// this.sprite.setGravity(100);
+		// this.sprite.blendMode = Phaser.BlendModes.MULTIPLY;
 		this.sprite.setCollideWorldBounds(true);
 
 		// animations
-		scene.anims.create({
-			key: this.animations.left,
-			frames: scene.anims.generateFrameNumbers(Player.spriteKey, {
-				start: 0,
-				end: 3
-			}),
-			frameRate: 10,
-			repeat: -1
-		});
+		// scene.anims.create({
+		// 	key: this.animations.left,
+		// 	frames: scene.anims.generateFrameNumbers(Player.key, {
+		// 		start: 0,
+		// 		end: 3
+		// 	}),
+		// 	frameRate: 10,
+		// 	repeat: -1
+		// });
 
-		scene.anims.create({
-			key: this.animations.right,
-			frames: scene.anims.generateFrameNumbers(Player.spriteKey, {
-				start: 5,
-				end: 8
-			}),
-			frameRate: 10,
-			repeat: -1
-		});
+		// scene.anims.create({
+		// 	key: this.animations.right,
+		// 	frames: scene.anims.generateFrameNumbers(Player.key, {
+		// 		start: 5,
+		// 		end: 8
+		// 	}),
+		// 	frameRate: 10,
+		// 	repeat: -1
+		// });
 
 		scene.anims.create({
 			key: this.animations.idle,
-			frames: [{ key: Player.spriteKey, frame: 4 }],
+			frames: scene.anims.generateFrameNumbers(Player.key, { start: 0, end: 99 }),
 			frameRate: 20,
 			repeat: -1
 		});
@@ -93,6 +98,7 @@ export class Player extends GameObject {
 		// if (this.cursors.up!.isDown || this.cursors.space!.isDown) {
 		// 	this.performJump();
 		// }
+		this.sprite.anims.play(this.animations.idle, true);
 		this.moveTowards(impulse);
 	};
 
