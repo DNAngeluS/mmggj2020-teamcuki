@@ -314,10 +314,12 @@ export class WorldScene extends Phaser.Scene {
 	}
 
 	private switchGameOver() {
+		this.music.stop();
 		this.scene.switch(GameOverScene.name);
 	}
 
 	private switchGameWin() {
+		this.music.stop();
 		this.scene.switch(GameWinScene.name);
 	}
 
