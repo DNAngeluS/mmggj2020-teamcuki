@@ -6,6 +6,8 @@ export declare class Player extends GameObject {
     static keyTake: string;
     static keyWithObject: string;
     pieces: any;
+    playMoveSound: any;
+    playPickup: any;
     isCarryng: boolean;
     isAnimating: boolean;
     sprite: Phaser.Physics.Arcade.Sprite;
@@ -16,7 +18,11 @@ export declare class Player extends GameObject {
     private isKeyDown;
     private readonly animations;
     load: (scene: Phaser.Scene) => void;
-    initialize: (scene: Phaser.Scene, pieces: any) => void;
+    initialize: (scene: Phaser.Scene, { pieces, playMoveSound, playPickup }: {
+        pieces: any;
+        playMoveSound: any;
+        playPickup: any;
+    }) => void;
     update: () => void;
     private handleKeyPress;
     private setIdleState;

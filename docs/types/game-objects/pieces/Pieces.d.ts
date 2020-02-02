@@ -5,12 +5,13 @@ export declare class Pieces extends GameObject {
     private scene;
     activeID: any;
     pieceIndex: number;
-    timeout: null;
+    timeout: any;
     load: (scene: Phaser.Scene) => void;
     initialize: (scene: Phaser.Scene) => void;
     addToGroup: (sprite: Phaser.GameObjects.Sprite | null) => void;
     getPieceById: (id: string) => any;
     getActivePiece: () => any;
+    cancelTheTimeout: () => void;
     createNewPiece: () => void;
     createPiece: ({ id, type, gridX, gridY, rotation, add }: any) => void;
 }

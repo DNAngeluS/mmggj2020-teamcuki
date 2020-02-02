@@ -1,1 +1,1 @@
-{"version":3,"file":"GameOverScene.d.ts","sourceRoot":"","sources":["../../../src/scenes/GameOverScene.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,MAAM,QAAQ,CAAC;AAIjC,qBAAa,aAAc,SAAQ,MAAM,CAAC,KAAK;IAC9C,OAAO,CAAC,SAAS,CAAsC;;IAMvD,OAAO;IAKP,MAAM;IAIN,MAAM;CACN"}
+{"version":3,"file":"GameOverScene.d.ts","sourceRoot":"","sources":["../../../src/scenes/GameOverScene.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,MAAM,QAAQ,CAAC;AAKjC,qBAAa,aAAc,SAAQ,MAAM,CAAC,KAAK;IAC9C,OAAO,CAAC,SAAS,CAAsC;;IAMvD,OAAO;IAKP,MAAM;IAIN,MAAM;CAaN"}

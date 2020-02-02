@@ -21,7 +21,6 @@ export declare class WorldScene extends Phaser.Scene {
     update(): void;
     private addScore;
     private buildBoard;
-    private hitSound;
     private initGame;
     private launchGameOver;
     private switchGameOver;

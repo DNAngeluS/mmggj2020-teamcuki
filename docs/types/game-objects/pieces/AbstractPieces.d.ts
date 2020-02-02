@@ -16,7 +16,7 @@ export declare enum Animations {
     DONE = "DONE"
 }
 export declare const SPRITE_FRAMES = 12;
-export declare const FRAME_RATE = 2;
+export declare const FRAME_RATE = 10;
 export declare abstract class AbstractPiece {
     abstract activeBorders: {
         in: Direction;
