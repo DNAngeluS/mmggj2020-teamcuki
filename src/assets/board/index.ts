@@ -10,5 +10,5 @@ export const boardAssets = {
 	RESISTOR_ACTIVE: '/src/assets/board/blank.png',
 	USER: '/src/assets/board/user.png',
 	VOID: '/src/assets/board/void.png',
-	BG: '/src/assets/board/bg.png'
+	BG: '/src/assets/board/bg1.png'
 };

@@ -1,25 +1,33 @@
 import * as Phaser from 'phaser';
 import { HUDScene, HUDSceneEvents } from './HUDScene';
-import { Background, Player, BoardColiders, Pieces } from '../game-objects/';
+import { Background, Player, BoardColiders, Pieces, Fx } from '../game-objects/';
+import { Music } from 'game-objects/sounds/Music';
 
 export class WorldScene extends Phaser.Scene {
 	private hud: Phaser.Scene;
 	private score: number = 0;
 
 	private background: Background = new Background();
-	private player: Player = new Player();
-	private worldGroup: Phaser.Physics.Arcade.StaticGroup;
 	private boardColiders: BoardColiders = new BoardColiders();
+	private player: Player = new Player();
+	private music: Music = new Music();
 	private pieces: Pieces = new Pieces();
+
+	private fx: Fx;
+	private worldGroup: Phaser.Physics.Arcade.StaticGroup;
 
 	constructor() {
 		super(sceneConfig);
+
+		this.fx = new Fx();
 	}
 	preload() {
 		this.background.load(this);
 		this.player.load(this);
 		this.boardColiders.load(this);
 		this.pieces.load(this);
+		this.fx.load(this);
+		this.music.load(this);
 	}
 
 	create() {
@@ -30,18 +38,21 @@ export class WorldScene extends Phaser.Scene {
 		this.boardColiders.initialize(this);
 		this.player.initialize(this);
 		this.pieces.initialize(this);
+		this.fx.initialize(this);
+		this.music.initialize(this);
 
 		this.worldGroup = this.physics.add.staticGroup();
 
 		this.buildBoard();
 
-		this.physics.add.collider(this.player.sprite, this.worldGroup);
 		this.physics.add.collider(this.boardColiders.group, this.worldGroup);
 
-		this.physics.add.collider(this.player.sprite, this.boardColiders.group);
+		this.physics.add.collider(this.player.sprite, this.boardColiders.group, this.hitSound.bind(this));
+		this.physics.add.collider(this.player.sprite, this.worldGroup);
 
 		// this.add.rectangle(800, 600, 40, 40, 0x00ffff);
 		this.input.on('pointerdown', this.addScore);
+		this.music.play();
 	}
 
 	update() {
@@ -86,6 +97,10 @@ export class WorldScene extends Phaser.Scene {
 			}
 		].forEach(this.pieces.createPiece);
 	};
+
+	private hitSound() {
+		this.fx.play();
+	}
 }
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
