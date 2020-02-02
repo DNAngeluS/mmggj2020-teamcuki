@@ -1,45 +1,33 @@
 import * as Phaser from 'phaser';
 import { soundAssets } from 'assets/sounds';
-import { SoundObject } from './SoundObject';
+import { MediaObject } from 'game-objects';
 // import { game } from 'main';
 
-export class Fx extends SoundObject {
-	public static key = soundAssets.FX_SWITCH.toString();
+export class Fx extends MediaObject {
+	public static pickupKey = soundAssets.FX_PICKUP.toString();
+	public static moveKey = soundAssets.FX_MOVE.toString();
+	public static fanfareKey = soundAssets.FX_FANFARE.toString();
 	// public state: string;
 
-	private audio: Phaser.Sound.BaseSound;
+	private pickup: Phaser.Sound.BaseSound;
+	private move: Phaser.Sound.BaseSound;
+	private fanfare: Phaser.Sound.BaseSound;
 
 	public load = (scene: Phaser.Scene) => {
-		scene.load.audio(Fx.key, [soundAssets.FX_SWITCH]);
+		scene.load.audio(Fx.pickupKey, [soundAssets.FX_PICKUP]);
+		scene.load.audio(Fx.moveKey, [soundAssets.FX_MOVE]);
+		scene.load.audio(Fx.fanfareKey, [soundAssets.FX_FANFARE]);
 	};
 
 	public initialize = (scene: Phaser.Scene) => {
-		this.audio = scene.sound.add(Fx.key);
-		// this.audio.once('stop', this.onStop);
-		// this.state = SoundObject.STATES.STOPPED;
+		this.pickup = scene.sound.add(Fx.pickupKey);
+		this.move = scene.sound.add(Fx.moveKey);
+		this.fanfare = scene.sound.add(Fx.fanfareKey);
 	};
 
-	public play = () => {
-		if (!this.audio.isPlaying) {
-			this.audio.play();
-		}
-		if (this.audio.isPaused) {
-			this.audio.resume();
-		}
-		// this.state = SoundObject.STATES.PLAYING;
-	};
+	public playMove = () => this.move.play();
 
-	public stop = () => {
-		this.audio.stop();
-		// this.state = SoundObject.STATES.STOPPED;
-	};
+	public playFanfare = () => this.fanfare.play();
 
-	public pause = () => {
-		this.audio.pause();
-		// this.state = SoundObject.STATES.PAUSED;
-	};
-
-	// private onStop = (sound: Phaser.Sound.BaseSound) => {
-	// 	this.state = SoundObject.STATES.STOPPED;
-	// };
+	public playPickuo = () => this.pickup.play();
 }

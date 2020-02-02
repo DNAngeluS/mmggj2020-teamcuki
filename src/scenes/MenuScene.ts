@@ -1,58 +1,43 @@
 import * as Phaser from 'phaser';
 import { WorldScene } from './WorldScene';
-import { Background } from '../game-objects/';
-import { BoardColiders } from '../game-objects/';
-// import { StraightCable } from '../game-objects/pieces/StraightCable';
+import { MenuVideoLoop, CinematicVideo } from 'game-objects';
 
 export class MenuScene extends Phaser.Scene {
-	private background: Background = new Background();
-	private boardColiders: BoardColiders = new BoardColiders();
-	// private straightCable: StraightCable = new StraightCable();
+	private background: MenuVideoLoop = new MenuVideoLoop();
+	private cinematic: CinematicVideo = new CinematicVideo();
 
 	constructor() {
 		super(sceneConfig);
 	}
 
 	preload() {
+		this.cinematic.load(this);
 		this.background.load(this);
-		this.boardColiders.load(this);
-		// this.straightCable.load(this);
 	}
 
 	create() {
+		this.cinematic.initialize(this);
 		this.background.initialize(this);
-		this.boardColiders.initialize(this);
-		// this.straightCable.initialize(this);
 
-		this.buildBoard();
-
-		this.input.once('pointerdown', () => this.scene.start(WorldScene.name));
+		this.cinematic.setFinishCallback(this.loadWorld.bind(this));
+		this.background.setFinishCallback(this.loadCinematic.bind(this));
 	}
 
 	update() {
-		// TODO
+		const ENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+
+		if (Phaser.Input.Keyboard.JustDown(ENTER)) {
+			this.background.setIsLooping(false);
+		}
 	}
 
-	//
-	private buildBoard = () => {
-		[
-			{ gridX: 11, gridY: 2 },
-			{ gridX: 12, gridY: 2 },
-			{ gridX: 4, gridY: 7 },
-			{ gridX: 5, gridY: 7 },
-			{ gridX: 5, gridY: 8 },
-			{ gridX: 5, gridY: 9 },
-			{ gridX: 12, gridY: 7 },
-			{ gridX: 13, gridY: 7 },
-			{ gridX: 13, gridY: 11 },
-			{ gridX: 14, gridY: 11 },
-			{ gridX: 13, gridY: 11 },
-			{ gridX: 15, gridY: 11 },
-			{ gridX: 16, gridY: 11 },
-			{ gridX: 17, gridY: 11 },
-			{ gridX: 18, gridY: 11 },
-			{ gridX: 19, gridY: 11 }
-		].forEach(this.boardColiders.createVoid);
+	private loadCinematic = () => {
+		this.background.destroy();
+		this.cinematic.play();
+	};
+
+	private loadWorld = () => {
+		this.scene.start(WorldScene.name);
 	};
 }
 

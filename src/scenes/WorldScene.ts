@@ -1,7 +1,15 @@
 import * as Phaser from 'phaser';
 import { HUDScene, HUDSceneEvents } from './HUDScene';
-import { Background, Player, BoardColiders, Pieces, Fx } from '../game-objects/';
+import { GameOverScene } from 'scenes/GameOverScene';
+import { GameWinScene } from 'scenes/GameWinScene';
+import { Background, GameOverOverlay, Player, BoardColiders, Pieces, Fx } from 'game-objects';
 import { Music } from 'game-objects/sounds/Music';
+
+export enum WorldSceneEvents {
+	gameover = 'gameover',
+	gamewin = 'gamewin',
+	addscore = 'addscore'
+}
 
 export class WorldScene extends Phaser.Scene {
 	private hud: Phaser.Scene;
@@ -12,7 +20,7 @@ export class WorldScene extends Phaser.Scene {
 	private player: Player = new Player();
 	private music: Music = new Music();
 	private pieces: Pieces = new Pieces();
-
+	private gameover: GameOverOverlay = new GameOverOverlay();
 	private fx: Fx;
 	private worldGroup: Phaser.Physics.Arcade.StaticGroup;
 
@@ -28,16 +36,20 @@ export class WorldScene extends Phaser.Scene {
 		this.pieces.load(this);
 		this.fx.load(this);
 		this.music.load(this);
+		this.gameover.load(this);
 	}
 
 	create() {
 		this.hud = this.scene.get(HUDScene.name);
 		this.scene.launch(HUDScene.name);
-
 		this.background.initialize(this);
 		this.boardColiders.initialize(this);
 		this.pieces.initialize(this);
-		this.player.initialize(this, this.pieces);
+		this.player.initialize(this, {
+			pieces: this.pieces,
+			playMoveSound: this.fx.playMove,
+			playPickup: this.fx.playPickuo
+		});
 		this.fx.initialize(this);
 		this.music.initialize(this);
 
@@ -47,11 +59,16 @@ export class WorldScene extends Phaser.Scene {
 
 		this.physics.add.collider(this.boardColiders.group, this.worldGroup);
 
-		this.physics.add.collider(this.player.sprite, this.boardColiders.group, this.hitSound.bind(this));
+		this.physics.add.collider(this.player.sprite, this.boardColiders.group);
 		this.physics.add.collider(this.player.sprite, this.worldGroup);
 
+		//Set Events
 		// this.add.rectangle(800, 600, 40, 40, 0x00ffff);
-		this.input.on('pointerdown', this.addScore);
+		this.gameover.setFinishCallback(this.switchGameOver.bind(this));
+		this.events.on(WorldSceneEvents.addscore, this.addScore.bind(this));
+		this.events.on(WorldSceneEvents.gameover, this.launchGameOver.bind(this));
+		this.events.on(WorldSceneEvents.gamewin, this.launchGameWin.bind(this));
+
 		this.music.play();
 
 		this.initGame();
@@ -62,7 +79,7 @@ export class WorldScene extends Phaser.Scene {
 	}
 
 	private addScore = () => {
-		this.score += 1;
+		this.score += 100;
 		this.hud.events.emit(HUDSceneEvents.updateScoreText, this.score);
 	};
 
@@ -284,15 +301,29 @@ export class WorldScene extends Phaser.Scene {
 		].forEach(this.pieces.createPiece);
 	};
 
-	private hitSound() {
-		this.fx.play();
-	}
-
 	private initGame() {
 		setTimeout(() => {
 			this.pieces.pieces['line-0'].setActive();
 		}, 10 * 1000);
 		this.pieces.createNewPiece();
+	}
+
+	private launchGameOver() {
+		this.gameover.initialize(this);
+		this.gameover.start();
+	}
+
+	private switchGameOver() {
+		this.scene.switch(GameOverScene.name);
+	}
+
+	private switchGameWin() {
+		this.scene.switch(GameWinScene.name);
+	}
+
+	private launchGameWin() {
+		// this.gameover.initialize(this);
+		this.switchGameWin();
 	}
 }
 

@@ -32,6 +32,7 @@ export class Pieces extends GameObject {
 		GridManager.pieces.addToGrid({ gridX: 3, gridY: -1, id: 'win' });
 		GridManager.pieces.addToGrid({ gridX: 4, gridY: -1, id: 'win' });
 		GridManager.pieces.addToGrid({ gridX: 5, gridY: -1, id: 'win' });
+		GridManager.pieces.addToGrid({ gridX: 0, gridY: 1, id: 'pickup-key' });
 	};
 
 	public addToGroup = (sprite: Phaser.GameObjects.Sprite | null) => {

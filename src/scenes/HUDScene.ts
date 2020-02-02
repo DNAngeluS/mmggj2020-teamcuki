@@ -1,36 +1,47 @@
-import * as Phaser from "phaser";
+import * as Phaser from 'phaser';
+import { HUDBackground, Score } from 'game-objects';
 
 export enum HUDSceneEvents {
-  updateScoreText = "updateScoreText"
+	updateScoreText = 'updateScoreText'
 }
 
 export class HUDScene extends Phaser.Scene {
-  private scoreText: Phaser.GameObjects.Text;
+	// private scoreText: Phaser.GameObjects.Text;
+	private background: HUDBackground = new HUDBackground();
+	private score: Score = new Score();
 
-  constructor() {
-    super(sceneConfig);
-  }
+	constructor() {
+		super(sceneConfig);
+	}
 
-  public create() {
-    this.scoreText = this.add.text(10, 10, "Score: 0", {
-      font: "48px Arial",
-      fill: "#eeeeee"
-    });
+	preload() {
+		this.background.load(this);
+		this.score.load(this);
+	}
 
-    this.events.on(HUDSceneEvents.updateScoreText, this.updateScoreText);
-  }
+	create() {
+		this.background.initialize(this);
+		this.score.initialize(this);
+		// this.scoreText = this.add.text(794, 78, '0', {
+		// 	font: '24px Raleway',
+		// 	fill: '#ffffff'
+		// });
 
-  public update() {
-    // TODO
-  }
+		this.events.on(HUDSceneEvents.updateScoreText, this.updateScoreText);
+	}
 
-  public updateScoreText = (newValue: number) => {
-    this.scoreText.setText(`Score: ${newValue}`);
-  };
+	update() {
+		// TODO
+	}
+
+	public updateScoreText = (newValue: number) => {
+		// this.scoreText.setText(`${newValue}`);s
+		this.score.addToScore(newValue);
+	};
 }
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
-  active: false,
-  visible: false,
-  key: HUDScene.name
+	active: false,
+	visible: false,
+	key: HUDScene.name
 };
