@@ -62,6 +62,7 @@ export abstract class AbstractPiece {
 		const { x, y } = gridToCanvas(this.position);
 		this.sprite = scene.add.sprite(x, y, this.spriteKey);
 		this.sprite.angle = RotationDeg(this.rotation);
+		this.sprite.setDepth(11);
 
 		// anims
 		scene.anims.create({
@@ -107,7 +108,7 @@ export abstract class AbstractPiece {
 
 	public setDone = () => {
 		this.sprite && this.sprite.anims.play(`${this.spriteKey}-${Animations.DONE}`);
-		const nextPiece = GridManager.getPieceOn({
+		const nextPiece = GridManager.pieces.getPieceOn({
 			gridX: this.position.gridX,
 			gridY: this.position.gridY,
 			direction: this.getActiveBorders()!.out
@@ -155,8 +156,15 @@ export abstract class AbstractPiece {
 		console.log('GAME OOOOOOO V    E      R          ! ! ! ! ! ! ! ! ! !');
 	}
 
-	public place() {
+	public place(position: any) {
+		this.position = position;
 		this.state = PieceState.SET;
+		this.sprite.setDepth(9);
+		GridManager.pieces.addToGrid({
+			id: this.spriteKey,
+			gridX: position.gridX,
+			gridY: position.gridY
+		});
 		this.createNewPiece();
 	}
 

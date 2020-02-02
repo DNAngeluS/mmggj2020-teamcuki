@@ -9,6 +9,7 @@ export class Pieces extends GameObject {
 	public group: Phaser.Physics.Arcade.Group;
 	public pieces: any = {};
 	private scene: any;
+	public activeID: any = null;
 
 	public load = (scene: Phaser.Scene) => {
 		this.scene = scene;
@@ -31,16 +32,24 @@ export class Pieces extends GameObject {
 
 	public getPieceById = (id: string) => this.pieces[id];
 
+	public getActivePiece = () => this.pieces[this.activeID];
+
 	public createNewPiece = () => {
+		const type = Math.random() < 0.5 ? 'line' : 'curve';
+		const id = `${type}-${new Date().getTime().toString()}`;
+
 		this.createPiece({
-			id: new Date().getTime(),
+			id,
 			gridX: 0,
 			gridY: 1,
-			type: Math.random() < 0.5 ? 'line' : 'curve'
+			type,
+			rotation: Math.random() < 0.5 ? 0 : 1,
+			add: false
 		});
+		this.activeID = id;
 	};
 
-	public createPiece = ({ id, type, gridX, gridY, rotation = Direction.TOP }: any) => {
+	public createPiece = ({ id, type, gridX, gridY, rotation = Direction.TOP, add = true }: any) => {
 		let piece: AbstractPiece | null = null;
 		const props = {
 			gridX,
@@ -64,7 +73,7 @@ export class Pieces extends GameObject {
 				...this.pieces,
 				[id]: piece
 			};
-			GridManager.addPieceToGrid({ id, gridX, gridY });
+			add && GridManager.pieces.addToGrid({ id, gridX, gridY });
 			piece.initialize(this.scene);
 			this.addToGroup(piece.getSprite());
 		}

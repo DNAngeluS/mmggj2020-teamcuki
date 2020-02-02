@@ -36,8 +36,8 @@ export class WorldScene extends Phaser.Scene {
 
 		this.background.initialize(this);
 		this.boardColiders.initialize(this);
-		this.player.initialize(this);
 		this.pieces.initialize(this);
+		this.player.initialize(this, this.pieces);
 		this.fx.initialize(this);
 		this.music.initialize(this);
 
@@ -148,30 +148,110 @@ export class WorldScene extends Phaser.Scene {
 			{
 				id: 'line-1',
 				type: 'line',
-				gridX: 15,
-				gridY: 6,
-				rotation: 2
-			},
-			{
-				id: 'curve-0',
-				type: 'curve',
-				gridX: 15,
-				gridY: 5,
-				rotation: 1
+				gridX: 18,
+				gridY: 5
 			},
 			{
 				id: 'line-2',
 				type: 'line',
-				gridX: 14,
-				gridY: 5,
+				gridX: 18,
+				gridY: 4
+			},
+			{
+				id: 'line-3',
+				type: 'line',
+				gridX: 18,
+				gridY: 3
+			},
+			{
+				id: 'line-4',
+				type: 'line',
+				gridX: 18,
+				gridY: 2
+			},
+			{
+				id: 'line-4',
+				type: 'line',
+				gridX: 18,
+				gridY: 1
+			},
+			{
+				id: 'line-5',
+				type: 'line',
+				gridX: 0,
+				gridY: 8
+			},
+			{
+				id: 'line-6',
+				type: 'line',
+				gridX: 0,
+				gridY: 7
+			},
+			{
+				id: 'line-7',
+				type: 'line',
+				gridX: 1,
+				gridY: 7
+			},
+			{
+				id: 'line-8',
+				type: 'line',
+				gridX: 7,
+				gridY: 8
+			},
+			{
+				id: 'line-9',
+				type: 'line',
+				gridX: 7,
+				gridY: 6
+			},
+			{
+				id: 'line-10',
+				type: 'line',
+				gridX: 7,
+				gridY: 7
+			},
+			{
+				id: 'curve-0',
+				type: 'curve',
+				gridX: 1,
+				gridY: 8,
 				rotation: 3
 			},
 			{
 				id: 'curve-1',
 				type: 'curve',
-				gridX: 13,
-				gridY: 5,
+				gridX: 5,
+				gridY: 8,
+				rotation: 1
+			},
+			{
+				id: 'curve-2',
+				type: 'curve',
+				gridX: 7,
+				gridY: 2,
 				rotation: 3
+			},
+			{
+				id: 'curve-3',
+				type: 'curve',
+				gridX: 7,
+				gridY: 3,
+				rotation: 1
+			},
+			{
+				id: 'curve-4',
+				type: 'curve',
+				gridX: 13,
+				gridY: 0,
+				rotation: 1
+			},
+			{
+				id: 'curve-5',
+				type: 'curve',
+				gridX: 14,
+				gridY: 0,
+				rotation: 0
 			}
 		].forEach(this.pieces.createPiece);
 	};

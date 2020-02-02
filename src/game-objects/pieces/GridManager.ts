@@ -5,7 +5,7 @@ class GridManager {
 
 	constructor() {}
 
-	addPieceToGrid({ gridX, gridY, id }: any) {
+	addToGrid({ gridX, gridY, id }: any) {
 		this.grid = {
 			...this.grid,
 			[`${gridX}-${gridY}`]: id
@@ -24,4 +24,7 @@ class GridManager {
 	}
 }
 
-export default new GridManager();
+export default {
+	pieces: new GridManager(),
+	voids: new GridManager()
+};
