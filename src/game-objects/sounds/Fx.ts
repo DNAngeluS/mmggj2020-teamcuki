@@ -1,9 +1,9 @@
 import * as Phaser from 'phaser';
 import { soundAssets } from 'assets/sounds';
-import { SoundObject } from './SoundObject';
+import { MediaObjectWithControls } from 'game-objects';
 // import { game } from 'main';
 
-export class Fx extends SoundObject {
+export class Fx extends MediaObjectWithControls {
 	public static key = soundAssets.FX_SWITCH.toString();
 	// public state: string;
 

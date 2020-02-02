@@ -1,8 +1,8 @@
 import * as Phaser from 'phaser';
 import { soundAssets } from 'assets/sounds';
-import { SoundObject } from './SoundObject';
+import { MediaObjectWithControls } from 'game-objects';
 
-export class Music extends SoundObject {
+export class Music extends MediaObjectWithControls {
 	public static key = soundAssets.BACKGROUND_LOOP.toString();
 
 	private audio: Phaser.Sound.BaseSound;
