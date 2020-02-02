@@ -30,7 +30,6 @@ export class CinematicVideo extends MediaObject {
 	};
 
 	private onFinish() {
-		console.log('VIDEO FINISHED');
 		if (this.finishCallback) {
 			this.finishCallback();
 		}
