@@ -17,7 +17,7 @@ module.exports = {
 				exclude: /node_modules/
 			},
 			{
-				test: /\.(gif|png|jpe?g|svg|xml)$/i,
+				test: /\.(gif|png|jpe?g|svg|xml|mp4|wav)$/i,
 				use: 'file-loader'
 			},
 			{
@@ -37,10 +37,10 @@ module.exports = {
 	output: {
 		filename: 'app.bundle.js',
 		path: path.resolve(__dirname, 'dist'),
-		publicPath: 'mmggj2020-teamcuki/'
+		publicPath: '/mmggj2020-teamcuki/'
 	},
 
-	mode: 'development',
+	// mode: 'development',
 
 	devServer: {
 		contentBase: path.resolve(__dirname, 'dist'),
