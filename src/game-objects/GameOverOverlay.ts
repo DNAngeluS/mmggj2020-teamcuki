@@ -9,6 +9,8 @@ export class GameOverOverlay extends GameObject {
 
 	public sprite: Phaser.Physics.Arcade.Sprite;
 
+	private finishCallback: Function;
+
 	public load = (scene: Phaser.Scene) => {
 		scene.load.spritesheet(GameOverOverlay.key, uiAssets.ENDSCREEN_OVERLAY, {
 			frameWidth: 1920,
@@ -31,5 +33,11 @@ export class GameOverOverlay extends GameObject {
 		scene.anims.create;
 	};
 
-	private startTransition = () => {};
+	public setFinishCallback = (callback: Function) => {
+		this.finishCallback = callback;
+	};
+
+	private startTransition = () => {
+		this.finishCallback();
+	};
 }

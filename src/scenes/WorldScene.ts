@@ -1,7 +1,14 @@
 import * as Phaser from 'phaser';
 import { HUDScene, HUDSceneEvents } from './HUDScene';
-import { Background, Player, BoardColiders, Pieces, Fx } from '../game-objects/';
+// import { GameOverScene } from 'scenes/GameOverScene';
+import { Background, GameOverOverlay, Player, BoardColiders, Pieces, Fx } from 'game-objects';
 import { Music } from 'game-objects/sounds/Music';
+
+export enum WorldSceneEvents {
+	gameover = 'gameover',
+	gamewin = 'gamewin',
+	addscore = 'addscore'
+}
 
 export class WorldScene extends Phaser.Scene {
 	private hud: Phaser.Scene;
@@ -12,7 +19,7 @@ export class WorldScene extends Phaser.Scene {
 	private player: Player = new Player();
 	private music: Music = new Music();
 	private pieces: Pieces = new Pieces();
-
+	private gameover: GameOverOverlay = new GameOverOverlay();
 	private fx: Fx;
 	private worldGroup: Phaser.Physics.Arcade.StaticGroup;
 
@@ -28,12 +35,13 @@ export class WorldScene extends Phaser.Scene {
 		this.pieces.load(this);
 		this.fx.load(this);
 		this.music.load(this);
+		this.gameover.load(this);
 	}
 
 	create() {
 		this.hud = this.scene.get(HUDScene.name);
 		this.scene.launch(HUDScene.name);
-
+		this.gameover.initialize(this);
 		this.background.initialize(this);
 		this.boardColiders.initialize(this);
 		this.pieces.initialize(this);
