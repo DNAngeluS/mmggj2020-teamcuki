@@ -1,0 +1,1 @@
+{"version":3,"file":"Score.d.ts","sourceRoot":"","sources":["../../../src/game-objects/Score.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,MAAM,QAAQ,CAAC;AAEjC,OAAO,EAAE,UAAU,EAAE,MAAM,cAAc,CAAC;AAG1C,qBAAa,KAAM,SAAQ,UAAU;IACpC,OAAc,GAAG,SAAwC;IAEzD,OAAO,CAAC,IAAI,CAA0B;IACtC,OAAO,CAAC,KAAK,CAAS;IAEf,IAAI,gCAET;IAEK,UAAU,gCASf;IAEK,UAAU,CAAC,KAAK,EAAE,MAAM;CAI/B"}

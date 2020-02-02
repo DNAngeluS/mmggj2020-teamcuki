@@ -1,0 +1,1 @@
+{"version":3,"file":"Music.d.ts","sourceRoot":"","sources":["../../../../src/game-objects/sounds/Music.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,MAAM,QAAQ,CAAC;AAEjC,OAAO,EAAE,uBAAuB,EAAE,MAAM,cAAc,CAAC;AAEvD,qBAAa,KAAM,SAAQ,uBAAuB;IACjD,OAAc,GAAG,SAA0C;IAE3D,OAAO,CAAC,KAAK,CAAyB;IAE/B,IAAI,gCAET;IAEK,UAAU,gCAEf;IAEK,IAAI,aAOT;IAEK,IAAI,aAET;IAEK,KAAK,aAEV;CACF"}

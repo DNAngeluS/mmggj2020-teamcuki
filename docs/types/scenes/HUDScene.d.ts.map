@@ -1,0 +1,1 @@
+{"version":3,"file":"HUDScene.d.ts","sourceRoot":"","sources":["../../../src/scenes/HUDScene.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,MAAM,QAAQ,CAAC;AAGjC,oBAAY,cAAc;IACzB,eAAe,oBAAoB;CACnC;AAED,qBAAa,QAAS,SAAQ,MAAM,CAAC,KAAK;IAEzC,OAAO,CAAC,UAAU,CAAsC;IACxD,OAAO,CAAC,KAAK,CAAsB;;IAMnC,OAAO;IAKP,MAAM;IAWN,MAAM;IAIC,eAAe,6BAGpB;CACF"}

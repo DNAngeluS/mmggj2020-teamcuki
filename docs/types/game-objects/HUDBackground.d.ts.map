@@ -1,0 +1,1 @@
+{"version":3,"file":"HUDBackground.d.ts","sourceRoot":"","sources":["../../../src/game-objects/HUDBackground.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,MAAM,QAAQ,CAAC;AAEjC,OAAO,EAAE,UAAU,EAAE,MAAM,cAAc,CAAC;AAG1C,qBAAa,aAAc,SAAQ,UAAU;IAC5C,OAAc,GAAG,SAAsC;IAEhD,IAAI,gCAET;IAEK,UAAU,gCAEf;CACF"}

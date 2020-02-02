@@ -1,0 +1,1 @@
+{"version":3,"file":"Fx.d.ts","sourceRoot":"","sources":["../../../../src/game-objects/sounds/Fx.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,MAAM,QAAQ,CAAC;AAEjC,OAAO,EAAE,uBAAuB,EAAE,MAAM,cAAc,CAAC;AAGvD,qBAAa,EAAG,SAAQ,uBAAuB;IAC9C,OAAc,GAAG,SAAoC;IAGrD,OAAO,CAAC,KAAK,CAAyB;IAE/B,IAAI,gCAET;IAEK,UAAU,gCAIf;IAEK,IAAI,aAQT;IAEK,IAAI,aAGT;IAEK,KAAK,aAGV;CAKF"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"MenuScene.d.ts","sourceRoot":"","sources":["../../../src/scenes/MenuScene.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,MAAM,QAAQ,CAAC;AAIjC,qBAAa,SAAU,SAAQ,MAAM,CAAC,KAAK;IAC1C,OAAO,CAAC,UAAU,CAAsC;IACxD,OAAO,CAAC,SAAS,CAAwC;;IAMzD,OAAO;IAKP,MAAM;IAQN,MAAM;IAQN,OAAO,CAAC,aAAa,CAGnB;IAEF,OAAO,CAAC,SAAS,CAEf;CACF"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"BoardColiders.d.ts","sourceRoot":"","sources":["../../../src/game-objects/BoardColiders.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,MAAM,QAAQ,CAAC;AAEjC,OAAO,EAAE,UAAU,EAAE,MAAM,cAAc,CAAC;AAK1C,qBAAa,aAAc,SAAQ,UAAU;IAC5C,OAAc,aAAa,SAA+B;IACnD,KAAK,EAAE,MAAM,CAAC,OAAO,CAAC,MAAM,CAAC,WAAW,CAAC;IAEzC,IAAI,gCAET;IAEK,UAAU,gCAEf;IAEK,UAAU;;;eAKf;CACF"}

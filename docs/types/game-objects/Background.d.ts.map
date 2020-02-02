@@ -1,0 +1,1 @@
+{"version":3,"file":"Background.d.ts","sourceRoot":"","sources":["../../../src/game-objects/Background.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,MAAM,QAAQ,CAAC;AAEjC,OAAO,EAAE,UAAU,EAAE,MAAM,cAAc,CAAC;AAG1C,qBAAa,UAAW,SAAQ,UAAU;IACzC,OAAc,WAAW,SAA6B;IAE/C,IAAI,gCAET;IAEK,UAAU,gCAEf;CACF"}
