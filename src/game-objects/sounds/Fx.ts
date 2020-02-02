@@ -5,7 +5,7 @@ import { SoundObject } from './SoundObject';
 
 export class Fx extends SoundObject {
 	public static key = soundAssets.FX_SWITCH.toString();
-	public state: string;
+	// public state: string;
 
 	private audio: Phaser.Sound.BaseSound;
 
@@ -15,8 +15,8 @@ export class Fx extends SoundObject {
 
 	public initialize = (scene: Phaser.Scene) => {
 		this.audio = scene.sound.add(Fx.key);
-		this.audio.once('stop', this.onStop);
-		this.state = SoundObject.STATES.STOPPED;
+		// this.audio.once('stop', this.onStop);
+		// this.state = SoundObject.STATES.STOPPED;
 	};
 
 	public play = () => {
@@ -26,20 +26,20 @@ export class Fx extends SoundObject {
 		if (this.audio.isPaused) {
 			this.audio.resume();
 		}
-		this.state = SoundObject.STATES.PLAYING;
+		// this.state = SoundObject.STATES.PLAYING;
 	};
 
 	public stop = () => {
 		this.audio.stop();
-		this.state = SoundObject.STATES.STOPPED;
+		// this.state = SoundObject.STATES.STOPPED;
 	};
 
 	public pause = () => {
 		this.audio.pause();
-		this.state = SoundObject.STATES.PAUSED;
+		// this.state = SoundObject.STATES.PAUSED;
 	};
 
-	private onStop = (sound: Phaser.Sound.BaseSound) => {
-		this.state = SoundObject.STATES.STOPPED;
-	};
+	// private onStop = (sound: Phaser.Sound.BaseSound) => {
+	// 	this.state = SoundObject.STATES.STOPPED;
+	// };
 }
