@@ -61,7 +61,7 @@ export class Player extends GameObject {
 
 		scene.anims.create({
 			key: this.animations.idle,
-			frames: scene.anims.generateFrameNumbers(Player.key, { start: 0, end: 99 }),
+			frames: scene.anims.generateFrameNumbers(Player.key, { start: 0, end: 96 }),
 			frameRate: 20,
 			repeat: -1
 		});
@@ -98,13 +98,13 @@ export class Player extends GameObject {
 		// if (this.cursors.up!.isDown || this.cursors.space!.isDown) {
 		// 	this.performJump();
 		// }
-		this.sprite.anims.play(this.animations.idle, true);
+		// this.sprite.anims.play(this.animations.idle, true);
 		this.moveTowards(impulse);
 	};
 
 	private setIdleState = () => {
 		this.sprite.setVelocityX(0);
-		this.sprite.anims.play(this.animations.idle);
+		this.sprite.anims.play(this.animations.idle, true);
 	};
 
 	private moveTowards = (direction: Phaser.Math.Vector2) => {
