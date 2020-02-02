@@ -166,18 +166,18 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "boardAssets", function() { return boardAssets; });
 var boardAssets = {
-    BLANK: '/src/assets/board/blank.png',
-    CAPACITOR: '/src/assets/board/capacitor.png',
-    CAPACITOR_ACTIVE: '/src/assets/board/capacitor_active.png',
-    CURVE: '/src/assets/board/curve.png',
-    DIVIDER: '/src/assets/board/divider.png',
-    DIVIDER_ACTIVE: '/src/assets/board/divider-active.png',
-    LINE: '/src/assets/board/line.png',
-    RESISTOR: '/src/assets/board/resistor.png',
-    RESISTOR_ACTIVE: '/src/assets/board/blank.png',
-    USER: '/src/assets/board/user.png',
-    VOID: '/src/assets/board/void.png',
-    BG: '/src/assets/board/bg1.png'
+    BLANK: '/mmggj2020-teamcuki/src/assets/board/blank.png',
+    CAPACITOR: '/mmggj2020-teamcuki/src/assets/board/capacitor.png',
+    CAPACITOR_ACTIVE: '/mmggj2020-teamcuki/src/assets/board/capacitor_active.png',
+    CURVE: '/mmggj2020-teamcuki/src/assets/board/curve.png',
+    DIVIDER: '/mmggj2020-teamcuki/src/assets/board/divider.png',
+    DIVIDER_ACTIVE: '/mmggj2020-teamcuki/src/assets/board/divider-active.png',
+    LINE: '/mmggj2020-teamcuki/src/assets/board/line.png',
+    RESISTOR: '/mmggj2020-teamcuki/src/assets/board/resistor.png',
+    RESISTOR_ACTIVE: '/mmggj2020-teamcuki/src/assets/board/blank.png',
+    USER: '/mmggj2020-teamcuki/src/assets/board/user.png',
+    VOID: '/mmggj2020-teamcuki/src/assets/board/void.png',
+    BG: '/mmggj2020-teamcuki/src/assets/board/bg1.png'
 };
 
 
@@ -194,12 +194,12 @@ var boardAssets = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "playerAssets", function() { return playerAssets; });
 var playerAssets = {
-    BODY: '/src/assets/player/spark.png',
-    PLAYER: '/src/assets/player/player.png',
-    STANDING: '/src/assets/player/standing.png',
-    DROP: '/src/assets/player/drop.png',
-    TAKE: '/src/assets/player/take.png',
-    WITH_OBJECT: '/src/assets/player/with-object.png'
+    BODY: '/mmggj2020-teamcuki/src/assets/player/spark.png',
+    PLAYER: '/mmggj2020-teamcuki/src/assets/player/player.png',
+    STANDING: '/mmggj2020-teamcuki/src/assets/player/standing.png',
+    DROP: '/mmggj2020-teamcuki/src/assets/player/drop.png',
+    TAKE: '/mmggj2020-teamcuki/src/assets/player/take.png',
+    WITH_OBJECT: '/mmggj2020-teamcuki/src/assets/player/with-object.png'
 };
 
 
@@ -216,13 +216,13 @@ var playerAssets = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "soundAssets", function() { return soundAssets; });
 var soundAssets = {
-    LEVEL_ONE_LOOP: '/src/assets/sounds/music/level1loop.wav',
-    LEVEL_TWO_LOOP: '/src/assets/sounds/music/level2loop.wav',
-    LEVEL_THREE_LOOP: '/src/assets/sounds/music/level3loop.wav',
-    LEVEL_FOUR_LOOP: '/src/assets/sounds/music/level4loop.wav',
-    FX_PICKUP: '/src/assets/sounds/fx/pick-up.wav',
-    FX_MOVE: '/src/assets/sounds/fx/move.wav',
-    FX_FANFARE: '/src/assets/sounds/fx/fanfare.wav'
+    LEVEL_ONE_LOOP: '/mmggj2020-teamcuki/src/assets/sounds/music/level1loop.wav',
+    LEVEL_TWO_LOOP: '/mmggj2020-teamcuki/src/assets/sounds/music/level2loop.wav',
+    LEVEL_THREE_LOOP: '/mmggj2020-teamcuki/src/assets/sounds/music/level3loop.wav',
+    LEVEL_FOUR_LOOP: '/mmggj2020-teamcuki/src/assets/sounds/music/level4loop.wav',
+    FX_PICKUP: '/mmggj2020-teamcuki/src/assets/sounds/fx/pick-up.wav',
+    FX_MOVE: '/mmggj2020-teamcuki/src/assets/sounds/fx/move.wav',
+    FX_FANFARE: '/mmggj2020-teamcuki/src/assets/sounds/fx/fanfare.wav'
 };
 
 
@@ -239,11 +239,11 @@ var soundAssets = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "uiAssets", function() { return uiAssets; });
 var uiAssets = {
-    SCREEN_OVERLAY: '/src/assets/ui/screen_overlay.png',
-    ENDSCREEN_OVERLAY: '/src/assets/ui/endScreen_GameOver.png',
-    SCORE_BACKGROUND: '/src/assets/ui/score.png',
+    SCREEN_OVERLAY: '/mmggj2020-teamcuki/src/assets/ui/screen_overlay.png',
+    ENDSCREEN_OVERLAY: '/mmggj2020-teamcuki/src/assets/ui/endScreen_GameOver.png',
+    SCORE_BACKGROUND: '/mmggj2020-teamcuki/src/assets/ui/score.png',
     TIME_BACKGROUND: '/src/asets/ui/time.png',
-    MENU_BACKGROUND: '/src/assets/ui/menuscreen_loop.png'
+    MENU_BACKGROUND: '/mmggj2020-teamcuki/src/assets/ui/menuscreen_loop.png'
 };
 
 
@@ -260,10 +260,10 @@ var uiAssets = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "videoAssets", function() { return videoAssets; });
 var videoAssets = {
-    ENDSCREEN_CINEMATIC: '/src/assets/videos/endScreen_GameOver.mp4',
-    WINSCREEN_CINEMATIC: '/src/assets/videos/endScreen_Win.mp4',
-    MAIN_CINEMATIC: '/src/assets/videos/Cinematica.mp4',
-    MENU_LOOP: '/src/assets/videos/menuScreen_Loop.mp4'
+    ENDSCREEN_CINEMATIC: '/mmggj2020-teamcuki/src/assets/videos/endScreen_GameOver.mp4',
+    WINSCREEN_CINEMATIC: '/mmggj2020-teamcuki/src/assets/videos/endScreen_Win.mp4',
+    MAIN_CINEMATIC: '/mmggj2020-teamcuki/src/assets/videos/Cinematica.mp4',
+    MENU_LOOP: '/mmggj2020-teamcuki/src/assets/videos/menuScreen_Loop.mp4'
 };
 
 
