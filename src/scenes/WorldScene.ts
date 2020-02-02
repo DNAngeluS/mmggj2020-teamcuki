@@ -1,6 +1,7 @@
 import * as Phaser from 'phaser';
 import { HUDScene, HUDSceneEvents } from './HUDScene';
 import { GameOverScene } from 'scenes/GameOverScene';
+import { GameWinScene } from 'scenes/GameWinScene';
 import { Background, GameOverOverlay, Player, BoardColiders, Pieces, Fx } from 'game-objects';
 import { Music } from 'game-objects/sounds/Music';
 
@@ -308,19 +309,21 @@ export class WorldScene extends Phaser.Scene {
 	}
 
 	private launchGameOver() {
-		console.log('Game Over launched');
 		this.gameover.initialize(this);
 		this.gameover.start();
 	}
 
 	private switchGameOver() {
-		console.log('Game Over Animation finish');
 		this.scene.switch(GameOverScene.name);
 	}
 
+	private switchGameWin() {
+		this.scene.switch(GameWinScene.name);
+	}
+
 	private launchGameWin() {
-		console.log('Game Win launched');
-		this.gameover.initialize(this);
+		// this.gameover.initialize(this);
+		this.switchGameWin();
 	}
 }
 

@@ -14,7 +14,7 @@ export class Score extends GameObject {
 	};
 
 	public initialize = (scene: Phaser.Scene) => {
-		this.text = scene.add.text(594, 78, '987230874', {
+		this.text = scene.add.text(794, 78, '0', {
 			font: '50px Raleway',
 			fill: '#ffffff',
 			weight: '700'
