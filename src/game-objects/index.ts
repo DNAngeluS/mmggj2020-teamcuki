@@ -2,6 +2,7 @@ import { Background } from './Background';
 import { BoardColiders } from './BoardColiders';
 import { CinematicVideo } from './CinematicVideo';
 import { GameObject } from './GameObject';
+import { GameOverOverlay } from './GameOverOverlay';
 import { HUDBackground } from './HUDBackground';
 import { MediaObject } from './MediaObject';
 import { MediaObjectWithControls } from './MediaObjectWithControls';
@@ -31,12 +32,13 @@ export {
 	GameObject,
 	MediaObject,
 	MediaObjectWithControls,
-	MenuBackground,
-	MenuVideoLoop,
 	Background,
 	BoardColiders,
 	CinematicVideo,
+	GameOverOverlay,
 	HUDBackground,
+	MenuBackground,
+	MenuVideoLoop,
 	Player,
 	Pieces,
 	Fx,
