@@ -27,15 +27,16 @@ export const SPRITE_FRAMES = 12;
 
 export abstract class AbstractPiece {
 	abstract activeBorders: { in: Direction; out: Direction } | null = null;
-	abstract spriteKey: string;
 	abstract assetURL: string;
 
+	private spriteKey: string;
 	public state: PieceState = PieceState.FREE;
 	private rotation: Direction = Direction.TOP;
 	private position: { gridX: number; gridY: number };
 	private sprite: Phaser.GameObjects.Sprite;
 
-	constructor({ gridX, gridY, rotation }: any) {
+	constructor({ gridX, gridY, rotation, id }: any) {
+		this.spriteKey = id;
 		this.position = { gridX, gridY };
 		this.rotation = rotation;
 	}
@@ -55,20 +56,20 @@ export abstract class AbstractPiece {
 		// anims
 		scene.anims.create({
 			key: `${this.spriteKey}-${Animations.IDLE}`,
-			frames: [{ key: this.spriteKey, frame: 0 }]
+			frames: [{ key: this.assetURL.toString(), frame: 0 }]
 		});
 
 		scene.anims.create({
 			key: `${this.spriteKey}-${Animations.DONE}`,
-			frames: [{ key: this.spriteKey, frame: SPRITE_FRAMES + 1 }]
+			frames: [{ key: this.assetURL.toString(), frame: SPRITE_FRAMES + 1 }]
 		});
 		const fillingAni = scene.anims.create({
 			key: `${this.spriteKey}-${Animations.FILLING}`,
-			frames: scene.anims.generateFrameNumbers(this.spriteKey, {
+			frames: scene.anims.generateFrameNumbers(this.assetURL.toString(), {
 				start: 1,
 				end: SPRITE_FRAMES
 			}),
-			frameRate: 5,
+			frameRate: 50,
 			repeat: 0
 		});
 

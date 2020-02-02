@@ -17,10 +17,11 @@ class GridManager {
 	}
 
 	getPieceOn({ gridX, gridY, direction }: any) {
-		if (Direction.TOP) return this.grid[`${gridX}-${gridY - 1}`];
-		if (Direction.RIGHT) return this.grid[`${gridX + 1}-${gridY}`];
-		if (Direction.BOTTOM) return this.grid[`${gridX}-${gridY + 1}`];
-		if (Direction.LEFT) return this.grid[`${gridX - 1}-${gridY}`];
+		console.log(gridX, gridY, direction, this.grid);
+		if (direction === Direction.TOP) return this.grid[`${gridX}-${gridY - 1}`];
+		if (direction === Direction.RIGHT) return this.grid[`${gridX + 1}-${gridY}`];
+		if (direction === Direction.BOTTOM) return this.grid[`${gridX}-${gridY + 1}`];
+		if (direction === Direction.LEFT) return this.grid[`${gridX - 1}-${gridY}`];
 	}
 }
 

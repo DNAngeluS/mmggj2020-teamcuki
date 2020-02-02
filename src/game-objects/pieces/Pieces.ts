@@ -32,10 +32,10 @@ export class Pieces extends GameObject {
 	public createPiece = ({ id, type, gridX, gridY, rotation = Direction.TOP }: any) => {
 		let piece: AbstractPiece | null = null;
 		if (type === 'line') {
-			piece = new StraightCable({ gridX, gridY, rotation });
+			piece = new StraightCable({ gridX, gridY, rotation, id });
 		}
 		if (type === 'curve') {
-			piece = new CurveCable({ gridX, gridY, rotation });
+			piece = new CurveCable({ gridX, gridY, rotation, id });
 		}
 
 		if (piece) {
