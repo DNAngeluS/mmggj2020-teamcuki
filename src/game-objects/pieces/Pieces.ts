@@ -11,7 +11,7 @@ export class Pieces extends GameObject {
 	private scene: any;
 	public activeID: any = null;
 	public pieceIndex = 0;
-	public timeout = null;
+	public timeout: any = null;
 
 	public load = (scene: Phaser.Scene) => {
 		this.scene = scene;
@@ -42,8 +42,10 @@ export class Pieces extends GameObject {
 
 	public getActivePiece = () => this.pieces[this.activeID];
 
+	public cancelTheTimeout = () => clearTimeout(this.timeout);
+
 	public createNewPiece = () => {
-		const type = Math.random() < 0.5 ? 'line' : 'curve';
+		const type = ['line', 'curve'][this.pieceIndex % 2];
 		const id = `${type}-${new Date().getTime().toString()}`;
 
 		this.createPiece({
@@ -51,10 +53,16 @@ export class Pieces extends GameObject {
 			gridX: 0,
 			gridY: 1,
 			type,
-			rotation: Math.random() < 0.5 ? 0 : 1,
+			rotation: Math.floor(Math.random() * 4),
 			add: false
 		});
 		this.activeID = id;
+
+		this.timeout = setTimeout(() => {
+			this.getPieceById(id).destroy();
+			this.pieceIndex++;
+			this.createNewPiece();
+		}, 300);
 	};
 
 	public createPiece = ({ id, type, gridX, gridY, rotation = Direction.TOP, add = true }: any) => {

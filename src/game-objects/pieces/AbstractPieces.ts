@@ -27,7 +27,7 @@ export enum Animations {
 }
 
 export const SPRITE_FRAMES = 12;
-export const FRAME_RATE = 2;
+export const FRAME_RATE = 10;
 
 export abstract class AbstractPiece {
 	abstract activeBorders: { in: Direction; out: Direction } | null = null;
@@ -76,7 +76,7 @@ export abstract class AbstractPiece {
 				start: 11,
 				end: 23
 			}),
-			frameRate: FRAME_RATE * 2,
+			frameRate: 20,
 			repeat: -1
 		});
 
@@ -86,7 +86,7 @@ export abstract class AbstractPiece {
 				start: 1,
 				end: 11
 			}),
-			frameRate: FRAME_RATE,
+			frameRate: 3,
 			repeat: 0
 		});
 

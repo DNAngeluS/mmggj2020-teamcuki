@@ -207,6 +207,7 @@ export class Player extends GameObject {
 		this.sprite.setPosition(x, y);
 
 		if (this.position.gridX === 0 && this.position.gridY === 1 && !this.isCarryng) {
+			this.pieces.cancelTheTimeout();
 			this.sprite.anims.play(this.animations.take);
 			this.isAnimating = true;
 			this.isCarryng = true;

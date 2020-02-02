@@ -291,7 +291,7 @@ export class WorldScene extends Phaser.Scene {
 	private initGame() {
 		setTimeout(() => {
 			this.pieces.pieces['line-0'].setActive();
-		}, 30 * 1000);
+		}, 10 * 1000);
 		this.pieces.createNewPiece();
 	}
 }
