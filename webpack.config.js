@@ -37,7 +37,7 @@ module.exports = {
 	output: {
 		filename: 'app.bundle.js',
 		path: path.resolve(__dirname, 'dist'),
-		publicPath: '/mmggj2020-teamcuki'
+		publicPath: 'mmggj2020-teamcuki/'
 	},
 
 	mode: 'development',
