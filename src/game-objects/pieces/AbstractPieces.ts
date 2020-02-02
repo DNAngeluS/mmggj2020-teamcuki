@@ -89,7 +89,7 @@ export abstract class AbstractPiece {
 				start: 1,
 				end: 11
 			}),
-			frameRate: 3,
+			frameRate: 2,
 			repeat: 0
 		});
 
