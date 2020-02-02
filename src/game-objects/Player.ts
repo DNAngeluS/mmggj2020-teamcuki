@@ -118,14 +118,14 @@ export class Player extends GameObject {
 		const takeAni = scene.anims.create({
 			key: this.animations.take,
 			frames: scene.anims.generateFrameNumbers(Player.keyTake, { start: 0, end: 9 }),
-			frameRate: 13,
+			frameRate: 23,
 			repeat: 0
 		});
 
 		const dropAni = scene.anims.create({
 			key: this.animations.drop,
 			frames: scene.anims.generateFrameNumbers(Player.keyDrop, { start: 0, end: 10 }),
-			frameRate: 13,
+			frameRate: 23,
 			repeat: 0
 		});
 
@@ -177,7 +177,6 @@ export class Player extends GameObject {
 		}
 
 		if (dropPiece) {
-			console.log(GridManager.pieces.getID(this.position));
 			if (this.isCarryng && !GridManager.pieces.getID(this.position)) {
 				this.pieces.getActivePiece().place(this.position);
 				this.isCarryng = false;

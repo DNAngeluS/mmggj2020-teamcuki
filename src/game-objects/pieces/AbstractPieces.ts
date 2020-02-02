@@ -27,7 +27,7 @@ export enum Animations {
 }
 
 export const SPRITE_FRAMES = 12;
-export const FRAME_RATE = 5;
+export const FRAME_RATE = 2;
 
 export abstract class AbstractPiece {
 	abstract activeBorders: { in: Direction; out: Direction } | null = null;
@@ -117,7 +117,11 @@ export abstract class AbstractPiece {
 		if (!nextPiece) {
 			this.handleGameOver();
 		} else {
-			this.getPieceById(nextPiece).handleGoNext(this);
+			if (nextPiece === 'win') {
+				this.handleGameWin();
+			} else {
+				this.getPieceById(nextPiece).handleGoNext(this);
+			}
 		}
 	};
 
@@ -156,6 +160,10 @@ export abstract class AbstractPiece {
 		console.log('GAME OOOOOOO V    E      R          ! ! ! ! ! ! ! ! ! !');
 	}
 
+	public handleGameWin() {
+		console.log('A WINNER IS YOU ! !   !   !    !   !    ! !  ! ! ! ');
+	}
+
 	public place(position: any) {
 		this.position = position;
 		this.state = PieceState.SET;
@@ -182,4 +190,8 @@ export abstract class AbstractPiece {
 					out: (this.activeBorders.out + this.rotation) % 4
 			  }
 			: null;
+
+	public destroy() {
+		this.sprite.destroy();
+	}
 }

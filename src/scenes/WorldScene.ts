@@ -170,43 +170,43 @@ export class WorldScene extends Phaser.Scene {
 				gridY: 2
 			},
 			{
-				id: 'line-4',
+				id: 'line-5',
 				type: 'line',
 				gridX: 18,
 				gridY: 1
 			},
 			{
-				id: 'line-5',
+				id: 'line-6',
 				type: 'line',
 				gridX: 0,
 				gridY: 8
 			},
 			{
-				id: 'line-6',
-				type: 'line',
-				gridX: 0,
-				gridY: 7
-			},
-			{
 				id: 'line-7',
 				type: 'line',
-				gridX: 1,
+				gridX: 0,
 				gridY: 7
 			},
 			{
 				id: 'line-8',
 				type: 'line',
-				gridX: 7,
-				gridY: 8
+				gridX: 1,
+				gridY: 7
 			},
 			{
 				id: 'line-9',
 				type: 'line',
 				gridX: 7,
-				gridY: 6
+				gridY: 8
 			},
 			{
 				id: 'line-10',
+				type: 'line',
+				gridX: 7,
+				gridY: 6
+			},
+			{
+				id: 'line-11',
 				type: 'line',
 				gridX: 7,
 				gridY: 7
@@ -252,6 +252,34 @@ export class WorldScene extends Phaser.Scene {
 				gridX: 14,
 				gridY: 0,
 				rotation: 0
+			},
+			{
+				id: 'curve-6',
+				type: 'curve',
+				gridX: 12,
+				gridY: 4,
+				rotation: 2
+			},
+			{
+				id: 'curve-7',
+				type: 'curve',
+				gridX: 11,
+				gridY: 6,
+				rotation: 0
+			},
+			{
+				id: 'curve-8',
+				type: 'curve',
+				gridX: 17,
+				gridY: 5,
+				rotation: 2
+			},
+			{
+				id: 'curve-9',
+				type: 'curve',
+				gridX: 17,
+				gridY: 4,
+				rotation: 1
 			}
 		].forEach(this.pieces.createPiece);
 	};
@@ -261,7 +289,9 @@ export class WorldScene extends Phaser.Scene {
 	}
 
 	private initGame() {
-		this.pieces.pieces['line-0'].setActive();
+		setTimeout(() => {
+			this.pieces.pieces['line-0'].setActive();
+		}, 30 * 1000);
 		this.pieces.createNewPiece();
 	}
 }

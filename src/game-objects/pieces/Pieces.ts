@@ -10,6 +10,8 @@ export class Pieces extends GameObject {
 	public pieces: any = {};
 	private scene: any;
 	public activeID: any = null;
+	public pieceIndex = 0;
+	public timeout = null;
 
 	public load = (scene: Phaser.Scene) => {
 		this.scene = scene;
@@ -24,6 +26,12 @@ export class Pieces extends GameObject {
 
 	public initialize = (scene: Phaser.Scene) => {
 		this.group = scene.physics.add.group();
+
+		GridManager.pieces.addToGrid({ gridX: 1, gridY: -1, id: 'win' });
+		GridManager.pieces.addToGrid({ gridX: 2, gridY: -1, id: 'win' });
+		GridManager.pieces.addToGrid({ gridX: 3, gridY: -1, id: 'win' });
+		GridManager.pieces.addToGrid({ gridX: 4, gridY: -1, id: 'win' });
+		GridManager.pieces.addToGrid({ gridX: 5, gridY: -1, id: 'win' });
 	};
 
 	public addToGroup = (sprite: Phaser.GameObjects.Sprite | null) => {
