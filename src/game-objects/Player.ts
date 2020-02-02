@@ -111,14 +111,14 @@ export class Player extends GameObject {
 		scene.anims.create({
 			key: this.animations.idle,
 			frames: scene.anims.generateFrameNumbers(Player.key, { start: 0, end: 96 }),
-			frameRate: 20,
+			frameRate: 12,
 			repeat: -1
 		});
 
 		scene.anims.create({
 			key: this.animations.withObject,
 			frames: scene.anims.generateFrameNumbers(Player.keyWithObject, { start: 0, end: 95 }),
-			frameRate: 20,
+			frameRate: 12,
 			repeat: -1
 		});
 
