@@ -1,5 +1,6 @@
 // import * as Phaser from 'phaser';
 import { gridToCanvas } from '../index';
+import GridManager from '../pieces/GridManager';
 
 export enum Direction {
 	TOP,
@@ -67,7 +68,7 @@ export abstract class AbstractPiece {
 				start: 1,
 				end: SPRITE_FRAMES
 			}),
-			frameRate: 10,
+			frameRate: 5,
 			repeat: 0
 		});
 
@@ -89,10 +90,21 @@ export abstract class AbstractPiece {
 
 	public setDone = () => {
 		this.sprite && this.sprite.anims.play(`${this.spriteKey}-${Animations.DONE}`);
+		const nextPiece = GridManager.getPieceOn({
+			gridX: this.position.gridX,
+			gridY: this.position.gridY,
+			direction: this.getActiveBorders()!.out
+		});
+		console.log('nextPiece', nextPiece);
 	};
 
 	public place() {
 		this.state = PieceState.SET;
+	}
+
+	public setActive() {
+		this.state = PieceState.ACTIVE;
+		this.sprite && this.sprite.anims.play(`${this.spriteKey}-${Animations.FILLING}`);
 	}
 
 	public getSprite = () => this.sprite;

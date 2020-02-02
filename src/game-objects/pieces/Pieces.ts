@@ -3,10 +3,11 @@ import { StraightCable } from './StraightCable';
 import { CurveCable } from './CurveCable';
 import { AbstractPiece, Direction } from './AbstractPieces';
 import { boardAssets } from '../../assets/board';
+import GridManager from '../pieces/GridManager';
 
 export class Pieces extends GameObject {
 	public group: Phaser.Physics.Arcade.Group;
-	private pieces: AbstractPiece[] = [];
+	public pieces: any = {};
 	private scene: any;
 
 	public load = (scene: Phaser.Scene) => {
@@ -28,7 +29,7 @@ export class Pieces extends GameObject {
 		sprite && this.group.add(sprite);
 	};
 
-	public createPiece = ({ type, gridX, gridY, rotation = Direction.TOP }: any) => {
+	public createPiece = ({ id, type, gridX, gridY, rotation = Direction.TOP }: any) => {
 		let piece: AbstractPiece | null = null;
 		if (type === 'line') {
 			piece = new StraightCable({ gridX, gridY, rotation });
@@ -38,7 +39,11 @@ export class Pieces extends GameObject {
 		}
 
 		if (piece) {
-			this.pieces.push(piece);
+			this.pieces = {
+				...this.pieces,
+				[id]: piece
+			};
+			GridManager.addPieceToGrid({ id, gridX, gridY });
 			piece.initialize(this.scene);
 			this.addToGroup(piece.getSprite());
 		}

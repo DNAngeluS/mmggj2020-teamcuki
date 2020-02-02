@@ -53,6 +53,8 @@ export class WorldScene extends Phaser.Scene {
 		// this.add.rectangle(800, 600, 40, 40, 0x00ffff);
 		this.input.on('pointerdown', this.addScore);
 		this.music.play();
+
+		this.initGame();
 	}
 
 	update() {
@@ -138,15 +140,26 @@ export class WorldScene extends Phaser.Scene {
 
 		[
 			{
+				id: 'line-0',
 				type: 'line',
 				gridX: 15,
 				gridY: 7
+			},
+			{
+				id: 'line-1',
+				type: 'line',
+				gridX: 15,
+				gridY: 6
 			}
 		].forEach(this.pieces.createPiece);
 	};
 
 	private hitSound() {
 		this.fx.play();
+	}
+
+	private initGame() {
+		this.pieces.pieces['line-0'].setActive();
 	}
 }
 
