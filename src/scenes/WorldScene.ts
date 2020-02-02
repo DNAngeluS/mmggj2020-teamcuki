@@ -1,6 +1,7 @@
 import * as Phaser from 'phaser';
 import { HUDScene, HUDSceneEvents } from './HUDScene';
-// import { GameOverScene } from 'scenes/GameOverScene';
+import { GameOverScene } from 'scenes/GameOverScene';
+import { GameWinScene } from 'scenes/GameWinScene';
 import { Background, GameOverOverlay, Player, BoardColiders, Pieces, Fx } from 'game-objects';
 import { Music } from 'game-objects/sounds/Music';
 
@@ -41,7 +42,6 @@ export class WorldScene extends Phaser.Scene {
 	create() {
 		this.hud = this.scene.get(HUDScene.name);
 		this.scene.launch(HUDScene.name);
-		this.gameover.initialize(this);
 		this.background.initialize(this);
 		this.boardColiders.initialize(this);
 		this.pieces.initialize(this);
@@ -62,8 +62,13 @@ export class WorldScene extends Phaser.Scene {
 		this.physics.add.collider(this.player.sprite, this.boardColiders.group);
 		this.physics.add.collider(this.player.sprite, this.worldGroup);
 
+		//Set Events
 		// this.add.rectangle(800, 600, 40, 40, 0x00ffff);
-		this.input.on('pointerdown', this.addScore);
+		this.gameover.setFinishCallback(this.switchGameOver.bind(this));
+		this.events.on(WorldSceneEvents.addscore, this.addScore.bind(this));
+		this.events.on(WorldSceneEvents.gameover, this.launchGameOver.bind(this));
+		this.events.on(WorldSceneEvents.gamewin, this.launchGameWin.bind(this));
+
 		this.music.play();
 
 		this.initGame();
@@ -74,7 +79,7 @@ export class WorldScene extends Phaser.Scene {
 	}
 
 	private addScore = () => {
-		this.score += 1;
+		this.score += 100;
 		this.hud.events.emit(HUDSceneEvents.updateScoreText, this.score);
 	};
 
@@ -301,6 +306,24 @@ export class WorldScene extends Phaser.Scene {
 			this.pieces.pieces['line-0'].setActive();
 		}, 30 * 1000);
 		this.pieces.createNewPiece();
+	}
+
+	private launchGameOver() {
+		this.gameover.initialize(this);
+		this.gameover.start();
+	}
+
+	private switchGameOver() {
+		this.scene.switch(GameOverScene.name);
+	}
+
+	private switchGameWin() {
+		this.scene.switch(GameWinScene.name);
+	}
+
+	private launchGameWin() {
+		// this.gameover.initialize(this);
+		this.switchGameWin();
 	}
 }
 

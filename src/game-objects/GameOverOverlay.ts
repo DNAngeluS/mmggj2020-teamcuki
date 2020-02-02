@@ -20,24 +20,32 @@ export class GameOverOverlay extends GameObject {
 
 	public initialize = (scene: Phaser.Scene) => {
 		this.sprite = scene.physics.add.sprite(game.scale.width / 2, game.scale.height / 2, GameOverOverlay.key);
-
-		this.sprite.on('complete', this.startTransition.bind(this));
+		this.sprite.on('animationcomplete', this.onFinish.bind(this));
+		this.sprite.setDepth(30);
 
 		scene.anims.create({
 			key: GameOverOverlay.loopKey,
 			frames: scene.anims.generateFrameNumbers(GameOverOverlay.key, { start: 0, end: 20 }),
 			frameRate: 20,
-			repeat: -1
+			repeat: 1
 		});
+	};
 
-		scene.anims.create;
+	public start = () => {
+		this.sprite.anims.play(GameOverOverlay.loopKey);
 	};
 
 	public setFinishCallback = (callback: Function) => {
 		this.finishCallback = callback;
 	};
 
-	private startTransition = () => {
-		this.finishCallback();
+	private onFinish = () => {
+		if (this.finishCallback) {
+			this.finishCallback();
+		}
 	};
+
+	// private startTransition = () => {
+	// 	this.finishCallback();
+	// };
 }

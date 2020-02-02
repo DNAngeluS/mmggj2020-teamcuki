@@ -3,6 +3,8 @@ import { BoardColiders } from './BoardColiders';
 import { CinematicVideo } from './CinematicVideo';
 import { GameObject } from './GameObject';
 import { GameOverOverlay } from './GameOverOverlay';
+import { GameOverVideo } from './GameOverVideo';
+import { GameWinVideo } from './GameWinVideo';
 import { HUDBackground } from './HUDBackground';
 import { MediaObject } from './MediaObject';
 import { MediaObjectWithControls } from './MediaObjectWithControls';
@@ -36,6 +38,8 @@ export {
 	BoardColiders,
 	CinematicVideo,
 	GameOverOverlay,
+	GameOverVideo,
+	GameWinVideo,
 	HUDBackground,
 	MenuBackground,
 	MenuVideoLoop,
