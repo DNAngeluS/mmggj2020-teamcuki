@@ -1,8 +1,8 @@
 export const playerAssets = {
-	BODY: '../src/assets/player/spark.png',
-	PLAYER: '../src/assets/player/player.png',
-	STANDING: '../src/assets/player/standing.png',
-	DROP: '../src/assets/player/drop.png',
-	TAKE: '../src/assets/player/take.png',
-	WITH_OBJECT: '../src/assets/player/with-object.png'
+	BODY: 'assets/player/spark.png',
+	PLAYER: 'assets/player/player.png',
+	STANDING: 'assets/player/standing.png',
+	DROP: 'assets/player/drop.png',
+	TAKE: 'assets/player/take.png',
+	WITH_OBJECT: 'assets/player/with-object.png'
 };

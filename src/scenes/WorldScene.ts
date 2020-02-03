@@ -1,7 +1,7 @@
 import * as Phaser from 'phaser';
 import { HUDScene, HUDSceneEvents } from './HUDScene';
-import { GameOverScene } from 'scenes/GameOverScene';
-import { GameWinScene } from 'scenes/GameWinScene';
+import { GameOverScene } from './GameOverScene';
+import { GameWinScene } from './GameWinScene';
 import { Background, GameOverOverlay, Player, BoardColiders, Pieces, Fx } from 'game-objects';
 import { Music } from 'game-objects/sounds/Music';
 

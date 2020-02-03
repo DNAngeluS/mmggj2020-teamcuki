@@ -2,6 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
 	entry: {
@@ -36,12 +38,16 @@ module.exports = {
 
 	output: {
 		filename: 'app.bundle.js',
+		// filename: 'bundle.min.js',
 		path: path.resolve(__dirname, 'dist'),
-		publicPath: '/mmggj2020-teamcuki/'
+		publicPath: 'mmggj2020-teamcuki/'
 	},
-
-	// mode: 'development',
-
+	mode: 'development',
+	devtool: false,
+	performance: {
+		maxEntrypointSize: 900000,
+		maxAssetSize: 900000
+	},
 	devServer: {
 		contentBase: path.resolve(__dirname, 'dist'),
 		host: '0.0.0.0',
@@ -56,7 +62,7 @@ module.exports = {
 			},
 			{
 				from: path.resolve(__dirname, 'src/assets', '**', '*'),
-				to: path.resolve(__dirname, 'dist')
+				to: path.resolve(__dirname, 'dist/assets')
 			}
 		]),
 		new webpack.DefinePlugin({
@@ -66,6 +72,9 @@ module.exports = {
 			'typeof PLUGIN_CAMERA3D': JSON.stringify(false),
 			'typeof PLUGIN_FBINSTANT': JSON.stringify(false),
 			'typeof FEATURE_SOUND': JSON.stringify(true)
+		}),
+		new HtmlWebpackPlugin({
+			template: './index.html'
 		})
 	],
 
@@ -78,6 +87,15 @@ module.exports = {
 					chunks: 'all'
 				}
 			}
-		}
+		},
+		minimizer: [
+			new TerserPlugin({
+				terserOptions: {
+					output: {
+						comments: false
+					}
+				}
+			})
+		]
 	}
 };
